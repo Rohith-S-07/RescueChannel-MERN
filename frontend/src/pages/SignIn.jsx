@@ -1,45 +1,114 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../services/authService';
+import '../assets/styles/SignIn_Up.css'
+import RescueLogo from '../assets/images/rescue-logo.png';
 
 const SignIn = () => {
-  const [formData, setFormData] = useState({
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({
     email: '',
     password: '',
   });
+  const [success, setSuccess] = useState('');
+  const [error, setError] = useState('');
 
-  const { email, password } = formData;
   const navigate = useNavigate();
 
-  const onChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const validateForm = () => {
+    let valid = true;
+    const newErrors = {
+      email: '',
+      password: '',
+    };
+
+    if (!email) {
+      newErrors.email = 'Email is required';
+      valid = false;
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = 'Email is invalid';
+      valid = false;
+    }
+
+    if (!password) {
+      newErrors.password = 'Password is required';
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const user = await login(formData);
-      localStorage.setItem('user', JSON.stringify(user));
-      navigate('/');
-      alert('Login Successful');
-      window.location.reload();
-      
-    } catch (error) {
-      console.error(error);
-      alert('Login Failed');
+
+    if (validateForm()) {
+      try {
+        const response = await axios.post('http://localhost:5000/api/auth/login', 
+          { email, password }, 
+          { withCredentials: true }
+        );
+    
+        if (response.status === 200) {
+          const userId = response.data.userId; // Extract the userId from the response
+          localStorage.setItem('userId', userId); // Store the userId in local storage
+    
+          setSuccess('Login successful!');
+          setError('');
+          
+          // Redirect to home page or dashboard
+          navigate('/');
+          window.location.reload();
+          
+        } else {
+          setError('Login failed. Please check your credentials and try again.');
+          setSuccess('');
+        }
+       } catch (error) {
+        setError(error.response?.data.message || 'An error occurred. Please try again later.');
+        setSuccess('');
+      }
     }
   };
 
   return (
-    <div>
-      <h2>Welcome</h2>
-      <form onSubmit={onSubmit}>
-        <label htmlFor="email">Email:</label>
-        <input type="email" name="email" value={email} onChange={onChange} required />
-        <label htmlFor="password">Password:</label>
-        <input type="password" name="password" value={password} onChange={onChange} required />
-        <button type="submit">Login</button>
-      </form>
+    <div className="wrapper d-flex justify-content-center align-items-center min-vh-100">
+      <div className="w-100 form-container" style={{ maxWidth: '400px' }}>
+        <div className='brand'>
+          <img src={RescueLogo} alt="RC" height={50} />
+          <span className="custom-heading fs-3">Rescue Channel</span>
+        </div>
+        <h2 className="heading">Sign In</h2>
+        <form onSubmit={onSubmit}>
+          <div className="form-group">
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            {errors.email && <div className="invalid-feedback">{errors.email}</div>}
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {errors.password && <div className="invalid-feedback">{errors.password}</div>}
+          </div>
+          <button type="submit">Sign In</button>
+        </form>
+        {error && <div className="text-danger mt-3 text-center">{error}</div>}
+        {success && <div className="text-success mt-3 text-center">{success}</div>}
+        <p class="new-user">Haven't Registered yet?<a href="/signup" class="register-link">Register now!</a></p>
+      </div>
     </div>
   );
 };

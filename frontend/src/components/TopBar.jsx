@@ -33,23 +33,18 @@ const TopBar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <NavLink className="nav-link" to="/" activeClassName="active" exact onClick={handleNavLinkClick}>
+              <NavLink className="nav-link mt-1" to="/" activeClassName="active" exact onClick={handleNavLinkClick}>
                 Home
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/about-us" activeClassName="active" onClick={handleNavLinkClick}>
+              <NavLink className="nav-link mt-1" to="/about-us" activeClassName="active" onClick={handleNavLinkClick}>
                 About Us
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/contact" activeClassName="active" onClick={handleNavLinkClick}>
+              <NavLink className="nav-link mt-1" to="/contact" activeClassName="active" onClick={handleNavLinkClick}>
                 Contact
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/profile" activeClassName="active" onClick={handleNavLinkClick}>
-                Profile
               </NavLink>
             </li>
           </ul>

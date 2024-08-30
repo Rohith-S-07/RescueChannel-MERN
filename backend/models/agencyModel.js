@@ -1,18 +1,9 @@
 const mongoose = require('mongoose');
 
-const agencySchema = mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  location: {
-    type: String,
-    required: true,
-  },
-  contact: {
-    type: String,
-    required: true,
-  },
+const agencySchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  status: { type: String, enum: ['onprocess', 'approved'], default: 'onprocess' },
 });
 
 const Agency = mongoose.model('Agency', agencySchema);

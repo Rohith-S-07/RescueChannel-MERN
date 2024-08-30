@@ -1,7 +1,8 @@
 const express = require('express');
-const { getAgencies, createAgency } = require('../controllers/agencyController');
 const router = express.Router();
+const { getAllAgencies, updateAgencyStatus } = require('../controllers/agencyController');
 
-router.route('/').get(getAgencies).post(createAgency);
+router.get('/agencies', getAllAgencies);
+router.put('/agencies/:id/status', updateAgencyStatus);
 
 module.exports = router;

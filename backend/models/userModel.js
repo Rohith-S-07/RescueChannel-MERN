@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -15,25 +14,15 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  status: {
+    type: String,
+    default: 'onprocess', // Default status value
+  },
   role: {
     type: String,
-    required: true,
-    enum: ['responder', 'agency', 'admin'],
-    default: 'responder',
-  },
-});
-
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) {
-    next();
+    default: 'agency' // Default role value
   }
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
 });
-
-userSchema.methods.matchPassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
-};
 
 const User = mongoose.model('User', userSchema);
 

@@ -1,10 +1,10 @@
 *{
-    font-family: cursive;
+    font-family: 'Poppins' serif;
 }
 
 
 .content-container{
-    padding: 80px 2vw 0 2vw;
+    padding: 80px 1vw 0 1vw;
 }
 
 /* Page Loading Animation */
@@ -25,7 +25,7 @@
 /* Top Bar CSS */
 .custom-navbar {
     /* From https://css.glass */
-    background: rgba(251, 246, 255, 0.454);
+    background: rgba(255, 255, 255, 0.454);
     box-shadow: 0 2px 15px rgb(183, 106, 255) inset;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px); 
@@ -89,8 +89,12 @@ align-items: center;
 }
 
 .custom-heading{
-    color: blueviolet;
-    font-style: italic;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: 500;
+    background: linear-gradient(blueviolet, rgb(164, 67, 254));
+    text-shadow: .3px .3px 8px rgba(162, 63, 255, 0.336);
+    background-clip: text;
+    color: transparent;
     
     /* font-family: "Lucida Handwriting"; */
     /* font-family: "Segoe Script"; */
@@ -112,6 +116,7 @@ align-items: center;
     box-shadow: 0.5px 0.5px 4px blueviolet ;
     
 }
+
 
 .hero:hover{
     box-shadow: -0.5px -0.5px 2px blueviolet ;
@@ -139,11 +144,16 @@ footer .navbar-brand{
 }
 
 .typing-animation {
-    font-family: 'Courier New', Courier, monospace;
+    /* font-family: 'Courier New', Courier, monospace; */
+    font-family: 'Lucida Handwriting', cursive;
+    text-align: center;
     text-wrap: wrap;
     white-space: pre;
+    letter-spacing: 1px;
+    font-style: italic;
+    color: rgb(76, 76, 76);
 }
-  
+
 
 
 @media (max-width:990px) {

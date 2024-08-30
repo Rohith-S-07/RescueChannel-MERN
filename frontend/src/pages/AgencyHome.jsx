@@ -1,47 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import { getAgencies } from '../services/agencyService';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import '../assets/styles/AgencyHomepage.css';
+import SideBar from '../components/SideBar';
+import Dashboard from '../components/Dashboard';
+import AllAgencies from '../components/AllAgencies';
+// import Rooms from '../components/Rooms';
+// import VictimsPortal from '../components/VictimsPortal';
+// import MapsPortal from '../components/MapsPortal';
 
 const AgencyHome = () => {
-  const [agencies, setAgencies] = useState([]);
-  const navigate = useNavigate();
+  const [activeComponent, setActiveComponent] = useState('Dashboard');
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getAgencies();
-      setAgencies(data);
-    };
-
-    fetchData();
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem('user');
-    // navigate('/signin');
-    alert("Succefully Logged out")
-    window.location.reload();
+  const renderComponent = () => {
+    switch (activeComponent) {
+      case 'Dashboard':
+        return <Dashboard />;
+      case 'All Agencies':
+        return <AllAgencies />;
+      // case 'Rooms':
+      //   return <Rooms />;
+      // case 'Victims Portal':
+      //   return <VictimsPortal />;
+      // case 'Maps Portal':
+      //   return <MapsPortal />;
+      default:
+        return <Dashboard />;
+    }
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-3 sidebar bg-light">
-          <div className="d-flex flex-column align-items-center p-3">
-            <h2>Agency Dashboard</h2>
-            <button onClick={handleLogout} className="btn btn-danger mt-auto">
-              Logout
-            </button>
-          </div>
-        </div>
-        <div className="col-md-9 main-content">
-          <h1>Agency Home</h1>
-          <ul>
-            {agencies.map((agency) => (
-              <li key={agency._id}>{agency.name}</li>
-            ))}
-          </ul>
-        </div>
+    <div className="d-flex">
+      <SideBar setActiveComponent={setActiveComponent} />
+      <div className="agency-content">
+        {renderComponent()}
       </div>
     </div>
   );

@@ -1,12 +1,116 @@
+.agency-home {
+  display: flex;
+  height: 100vh;
+}
 
+.custom-heading{
+  color: blueviolet;
+  font-style: italic;
+}
+
+/* Sidebar Styles */
 .sidebar {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  width: 220px;
+  background-color: rgba(251, 246, 255, 0.454);
+  box-shadow: 0 2px 15px rgb(183, 106, 255) inset;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  padding: 5px;
+  height: calc(100% - 80px);
+  transition: width 0.3s;
+  z-index: 1000;
+  border-radius: 0 10px 10px 0;
 }
 
-.main-content {
-    padding: 20px;
+.nav .nav-link {
+  color: blueviolet;
+  border-radius: 15px;
+  border: 1px rgba(255, 255, 255, 0) solid;
+  }
+
+.nav .nav-link:hover {
+  border-radius: 20px;
+  color: blueviolet;
+  border: 1px blueviolet solid;
+  box-shadow: 0 2px 15px rgba(183, 106, 255, 0.808) inset;
 }
+
+/* .nav .nav-link.active {
+  box-shadow: 1px 1px 10px blueviolet;
+  border: 1px blueviolet solid;
+  background-color: blueviolet;
+  color: white !important;
+  border-radius: 15px;
+} */
+
+/* Collapsed Sidebar Styles */
+.sidebar.collapsed {
+  width: 20px; /* Adjusted width for better accessibility */
+}
+
+/* Toggle Button Styles */
+.btn-toggle {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  height: 80px;
+  width: 25px;
+  transform: translateX(-50%) translateY(-50%);
+  border: 0.5px solid blueviolet;
+  background: linear-gradient(to right , white,rgb(222, 187, 255));
+  color: blueviolet;
+  border-radius: 10px;
+}
+
+/* Content Area Styles */
+.agency-content {
+  margin-left: 230px;
+  margin-top: 10px;
+  width: calc(100% - 220px);
+  transition: margin-left 0.3s, width 0.3s;
+}
+
+/* Adjust Content Area when Sidebar Collapses */
+.sidebar.collapsed ~ .agency-content {
+  margin-left: 30px;
+  width: calc(100% - 30px);
+}
+
+/* Responsive Styles for Sidebar */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 190px;
+  }
   
+  .sidebar.collapsed {
+    width: 15px;
+  }
+
+  .agency-content {
+    margin-left: 0;
+    width: 100%;
+    padding-left: 25px;
+  }
+
+  .sidebar.collapsed ~ .agency-content {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+}
+
+.page-content {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.5s forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}

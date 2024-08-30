@@ -1,15 +1,25 @@
 const Agency = require('../models/agencyModel');
 
-const getAgencies = async (req, res) => {
-  const agencies = await Agency.find({});
-  res.json(agencies);
+// Get all agencies
+exports.getAllAgencies = async (req, res) => {
+  try {
+    const agencies = await Agency.find();
+    res.json(agencies);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
-const createAgency = async (req, res) => {
-  const { name, location, contact } = req.body;
-  const agency = new Agency({ name, location, contact });
-  await agency.save();
-  res.status(201).json(agency);
-};
+// Update agency status
+exports.updateAgencyStatus = async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
 
-module.exports = { getAgencies, createAgency };
+  try {
+    const agency = await Agency.findByIdAndUpdate(id, { status }, { new: true });
+    if (!agency) return res.status(404).json({ message: 'Agency not found' });
+    res.json(agency);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

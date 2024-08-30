@@ -6,6 +6,7 @@ import nidm_logo from '../assets/images/nidm_logo.png'
 import cdri_logo from '../assets/images/cdri_logo.png'
 import TypingAnimation from '../components/TypingAnimation';
 import EmergencyImage from '../assets/images/emergency.png';
+import BottomBar from '../components/BottomBar';
 
 
 const ResponderHome = () => {
@@ -22,7 +23,7 @@ const ResponderHome = () => {
         </div>
         <div className="col-md-6 d-flex flex-column justify-content-center align-items-center p-3">
           <h1 className="text-bold fs-1 custom-heading">Rescue Channel</h1>
-          <div className=" z-20 mt-3 text-warning">
+          <div className=" z-20 mt-3 typing-text">
           <TypingAnimation text=" ' Unity is strength... when there is teamwork and collaboration, wonderful things can be achieved.  ' - Mattie Stepanek "/>
           </div>
           <a className="btn btn-outline-danger mt-4 z-20 opacity-80" href="/sos-form">
@@ -49,7 +50,7 @@ const ResponderHome = () => {
         {/* Join Us Section */}
         <div id="joinus" className="flex w-full flex-col align-items-center justify-center hero mt-5 m-2 p-4">
           <h2 className="text-3xl font-bold text-center mb-4 custom-heading">Join Us</h2>
-          <p className="text-xl text-center px-8 text-warning">
+          <p className="text-center px-8 typing-text">
             <TypingAnimation text=' " Alone, we can do so little; together, we can do so much. " — Helen Keller'/>
             
           </p>
@@ -110,6 +111,7 @@ const ResponderHome = () => {
 
         
       </div>
+      <BottomBar/>
     </div>
   );
 };

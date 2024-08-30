@@ -44,7 +44,6 @@ const SOSFormPage = () => {
                <option>Fire</option>
                <option>Earthquake</option>
                <option>Flood</option>
-               <option>Other</option>
              </select>
              <select className="form-select">
                <option selected disabled>Apx. number of people affected</option>

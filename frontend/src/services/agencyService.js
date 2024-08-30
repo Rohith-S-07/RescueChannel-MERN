@@ -1,13 +1,11 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/agencies';
-
 export const getAgencies = async () => {
-  const response = await axios.get(API_URL);
+  const response = await axios.get('/api/agencies');
   return response.data;
 };
 
-export const createAgency = async (agencyData) => {
-  const response = await axios.post(API_URL, agencyData);
+export const updateAgencyStatus = async (id, status) => {
+  const response = await axios.put(`/api/agencies/${id}/status`, { status });
   return response.data;
 };
