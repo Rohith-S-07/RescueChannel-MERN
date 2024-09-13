@@ -1,6 +1,7 @@
 import React from 'react';
 import EmergencyTeam from '../assets/images/emergency-team.png'
 import TypingAnimation from '../components/TypingAnimation';
+import BottomBar from '../components/BottomBar';
 
 
 const AboutUs = () => {
@@ -11,19 +12,19 @@ const AboutUs = () => {
           <div>
             <img src={EmergencyTeam} alt="Rescue" className="card-img-top rounded-top" />
             <div className="text-center text-warning text-wrap">
-            <TypingAnimation text=' "Unity to be real must stand the severest strain without breaking." - Mahatma Gandhi'/>
+              <TypingAnimation text=' "Unity to be real must stand the severest strain without breaking." - Mahatma Gandhi' />
             </div>
           </div>
         </div>
         <div className="col-md-6 text-center">
           <h2 className="text-3xl text-center custom-heading">Our Main Pillars</h2>
-          <h4 className="font-bold text-warning">The Power of Unity</h4>
+          <h4 className="font-bold text-info">The Power of Unity</h4>
           <p className="text-sm mb-4">
             We firmly believe that unity is the cornerstone of effective disaster response. By bringing together diverse
             agencies and their invaluable expertise, we harness the power of collaboration to make a profound difference
             when it matters most.
           </p>
-          <h4 className="font-bold text-warning">Streamlining Emergency Response</h4>
+          <h4 className="font-bold text-info">Streamlining Emergency Response</h4>
           <p className="text-sm">
             Our organization serves as the catalyst for this unified approach, facilitating seamless coordination,
             resource-sharing, and communication among rescue agencies. We believe that streamlining these efforts is the
@@ -36,7 +37,7 @@ const AboutUs = () => {
       <div className="d-flex justify-content-center mb-5 mx-4">
         <div className="flex-1 max-w-5xl space-y-4 w-100">
           <div className="accordion" id="accordionExample">
-            <div className="accordion-item">
+            <div className="accordion-item accordion-bg">
               <h2 className="accordion-header" id="headingOne">
                 <button
                   className="accordion-button"
@@ -61,7 +62,8 @@ const AboutUs = () => {
                 </div>
               </div>
             </div>
-            <div className="accordion-item">
+
+            <div className="accordion-item accordion-bg">
               <h2 className="accordion-header" id="headingTwo">
                 <button
                   className="accordion-button collapsed"
@@ -87,7 +89,8 @@ const AboutUs = () => {
                 </div>
               </div>
             </div>
-            <div className="accordion-item">
+
+            <div className="accordion-item accordion-bg">
               <h2 className="accordion-header" id="headingThree">
                 <button
                   className="accordion-button collapsed"
@@ -114,8 +117,10 @@ const AboutUs = () => {
               </div>
             </div>
           </div>
+
         </div>
       </div>
+      <BottomBar />
     </div>
   );
 };

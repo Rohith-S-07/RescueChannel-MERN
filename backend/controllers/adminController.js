@@ -1,28 +1,45 @@
-const Agency = require('../models/agencyModel');
+const User = require('../models/userModel');
 
-const getAgencies = async (req, res) => {
+const getAllUsers = async (req, res) => {
   try {
-    const agencies = await Agency.find({});
-    res.json(agencies);
+    const users = await User.find({});
+    res.status(200).json(users);
   } catch (error) {
-    res.status(500).json({ message: 'Failed to fetch agencies' });
+    console.error('Error fetching users:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
-const updateAgencyStatus = async (req, res) => {
+// Approve a user
+const approveUser = async (req, res) => {
   const { id } = req.params;
-  const { status } = req.body;
 
   try {
-    const agency = await Agency.findByIdAndUpdate(id, { status }, { new: true });
-    if (!agency) {
-      res.status(404).json({ message: 'Agency not found' });
-    } else {
-      res.json(agency);
+    const user = await User.findByIdAndUpdate(id, { status: 'approved' }, { new: true });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
     }
+    res.status(200).json({ message: 'User approved successfully', user });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to update agency status' });
+    console.error('Error approving user:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
-module.exports = { getAgencies, updateAgencyStatus };
+// Add a deleteUser function if needed
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await User.findByIdAndDelete(id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json({ message: 'User deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+module.exports = { getAllUsers, approveUser, deleteUser };

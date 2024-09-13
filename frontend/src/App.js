@@ -9,6 +9,8 @@ import SOSFormPage from './pages/SOSFormPage';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 import AgencyHome from './pages/AgencyHome';
+import AdminDashboard from './components/AdminDashboard';
+import UserManagement from './components/UserManagement';
 
 
 import './assets/styles/LandingPage.css';
@@ -64,16 +66,8 @@ const App = () => {
         <Route path="/sos-form" element={<Layout><SOSFormPage /></Layout>} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
-        {/* <Route
-          path="/admin"
-          element={
-            <ProtectedRoute role="admin">
-              <Layout>
-                <AdminPanel />
-              </Layout>
-            </ProtectedRoute>
-          }
-        /> */}
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/users" element={<UserManagement />} />
       </Routes>
     </Router>
   );

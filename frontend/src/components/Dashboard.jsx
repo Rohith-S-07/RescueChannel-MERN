@@ -35,7 +35,7 @@ const Dashboard = ({ posts }) => {
 
       {/* Posts */}
       <div className="row px-3">
-          <div className="col-12 mb-4 hero">
+          <div className="col-12 mb-4">
             <Link className="text-decoration-none">
               <div className="bg-light rounded shadow-sm p-4 border border-light hover-shadow">
                 <div className="d-flex justify-content-between">

@@ -1,12 +1,14 @@
-// controllers/authController.js
 const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 
 
 const registerUser = async (req, res) => {
-  const { name, email, password, status,role } = req.body; // Include status
-  
+  const { name, email, password, status, role } = req.body;
+  const licenseDocument = req.file ? req.file.path : null; // Handle file upload
+
+  if (!password) {
+    return res.status(400).json({ message: 'Password is required' });
+  }
 
   try {
     // Check if user already exists
@@ -18,17 +20,26 @@ const registerUser = async (req, res) => {
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    // Create new user with status
-    const newUser = new User({ name, email, password: hashedPassword, status, role });
+    // Create new user
+    const newUser = new User({
+      name,
+      email,
+      password: hashedPassword,
+      status,
+      role,
+      licenseDocument, // Save file path in user document
+    });
+
     await newUser.save();
 
     // Respond with success
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
-    console.error('Error registering user:', error); // Log the error
+    console.error('Error registering user:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };
+
 
 // Authenticate a user
 const authUser = async (req, res) => {

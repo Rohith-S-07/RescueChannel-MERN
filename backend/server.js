@@ -1,9 +1,15 @@
 const express = require('express');
 const cors = require('cors');
-const session = require('express-session');
-const MongoStore = require('connect-mongo');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db'); // Import the connectDB function
+const fs = require('fs');
+const path = require('path');
+
+// Ensure the uploads directory exists
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir);
+}
 
 // Load environment variables from .env file
 dotenv.config();
@@ -25,13 +31,14 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // Your routes
-const agencyRoutes = require('./routes/agencyRoutes');
 const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 
-app.use('/api/agencies', agencyRoutes);
+
+
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
+
 
 const PORT = process.env.PORT || 5000;
 

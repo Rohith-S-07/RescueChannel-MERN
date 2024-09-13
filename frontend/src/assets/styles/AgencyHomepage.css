@@ -3,18 +3,22 @@
   height: 100vh;
 }
 
-.custom-heading{
-  color: blueviolet;
-  font-style: italic;
+.custom-heading {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-weight: 500;
+  background: linear-gradient(#fdc220, rgb(255, 162, 0));
+  text-shadow: 0.3px 0.3px 8px #fdc22030;
+  background-clip: text;
+  color: transparent;
 }
 
 /* Sidebar Styles */
 .sidebar {
   width: 220px;
-  background-color: rgba(251, 246, 255, 0.454);
-  box-shadow: 0 2px 15px rgb(183, 106, 255) inset;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  background: transparent;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  min-height: 50px;
   position: fixed;
   left: 0;
   bottom: 0;
@@ -22,28 +26,29 @@
   height: calc(100% - 80px);
   transition: width 0.3s;
   z-index: 1000;
+  box-shadow: 0.5px 0.5px 4px #fdc22060;
   border-radius: 0 10px 10px 0;
 }
 
 .nav .nav-link {
-  color: blueviolet;
-  border-radius: 15px;
+  color: white;
   border: 1px rgba(255, 255, 255, 0) solid;
-  }
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
 
 .nav .nav-link:hover {
-  border-radius: 20px;
-  color: blueviolet;
-  border: 1px blueviolet solid;
-  box-shadow: 0 2px 15px rgba(183, 106, 255, 0.808) inset;
+  color: #fdc220;
+  background-color: #2f4f6d;
+  border-radius: 10px;
 }
 
 /* .nav .nav-link.active {
-  box-shadow: 1px 1px 10px blueviolet;
-  border: 1px blueviolet solid;
-  background-color: blueviolet;
+  background-color: #345879;
+  border-radius: 10px;
+  border-bottom: 1.5px #fdc220 solid;
+  font-weight: bold;
   color: white !important;
-  border-radius: 15px;
 } */
 
 /* Collapsed Sidebar Styles */
@@ -59,9 +64,9 @@
   height: 80px;
   width: 25px;
   transform: translateX(-50%) translateY(-50%);
-  border: 0.5px solid blueviolet;
-  background: linear-gradient(to right , white,rgb(222, 187, 255));
-  color: blueviolet;
+  border: 0.5px solid #00188e;
+  background: linear-gradient(to right, white, #758cff);
+  color: #00188e;
   border-radius: 10px;
 }
 
@@ -84,7 +89,7 @@
   .sidebar {
     width: 190px;
   }
-  
+
   .sidebar.collapsed {
     width: 15px;
   }
@@ -99,7 +104,6 @@
     margin-left: 0;
     width: 100%;
   }
-  
 }
 
 .page-content {
@@ -110,7 +114,7 @@
 
 @keyframes fadeInUp {
   to {
-      opacity: 1;
-      transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
   }
 }

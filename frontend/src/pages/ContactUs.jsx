@@ -1,11 +1,12 @@
 import React from 'react';
 import contactus from '../assets/images/contactus.png'
+import BottomBar from '../components/BottomBar';
 
 const ContactUs = () => {
   return (
     
-    <div className=" page-content hero row m-2 mb-2 p-4">
-      
+    <div>
+      <div className=" page-content hero row m-2 mb-2 p-4">
         <img
           src={contactus}
           alt="Pomodoro"
@@ -43,11 +44,13 @@ const ContactUs = () => {
               placeholder="Your Message (Feel free to thoroughly explain your query or suggestion here.)"
               className="form-control w-100 mb-4"
             ></textarea>
-            <button className="btn btn-outline-success">Submit</button>
+            <button className="btn btn-success">Submit</button>
           </form>
         </div>
-        
-      </div>
+    </div>
+    <BottomBar/>
+    </div>
+      
     
   );
 };

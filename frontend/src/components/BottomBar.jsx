@@ -14,7 +14,7 @@ const BottomBar = () => {
           </NavLink>
         </div>
         <div className="col mb-3">
-          <ul className="list-unstyled text-muted">
+          <ul className="list-unstyled">
             <li>
               <NavLink className="text-decoration-none text-muted" to="/about-us">
                 About Us
@@ -71,7 +71,7 @@ const BottomBar = () => {
           </ul>
         </div>
       </div>
-      <p className="text-center text-muted">&copy; 2024 Resque Channel. All rights reserved.</p>
+      <p className="text-center custom-text">&copy; 2024 Resque Channel. All rights reserved.</p>
     </footer>
   );
 };

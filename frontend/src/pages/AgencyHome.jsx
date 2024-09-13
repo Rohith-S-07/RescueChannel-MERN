@@ -3,8 +3,8 @@ import '../assets/styles/AgencyHomepage.css';
 import SideBar from '../components/SideBar';
 import Dashboard from '../components/Dashboard';
 import AllAgencies from '../components/AllAgencies';
-// import Rooms from '../components/Rooms';
-// import VictimsPortal from '../components/VictimsPortal';
+import Chatrooms from '../components/Chatrooms';
+import VictimsPortal from '../components/VictimsPortal';
 // import MapsPortal from '../components/MapsPortal';
 
 const AgencyHome = () => {
@@ -16,10 +16,10 @@ const AgencyHome = () => {
         return <Dashboard />;
       case 'All Agencies':
         return <AllAgencies />;
-      // case 'Rooms':
-      //   return <Rooms />;
-      // case 'Victims Portal':
-      //   return <VictimsPortal />;
+      case 'Chatrooms':
+        return <Chatrooms/>;
+      case 'Victims Portal':
+        return <VictimsPortal />;
       // case 'Maps Portal':
       //   return <MapsPortal />;
       default:

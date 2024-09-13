@@ -17,8 +17,8 @@ const ResponderHome = () => {
           <img
             src={EmergencyImage}
             alt="Rescue Background"
-            className="img-fluid"
-            style={{ opacity: 0.8, height: '100%', width: 'auto', maxHeight: '60vh' }}
+            className="img-fluid emg-img"
+            style={{ height: '100%', width: 'auto', maxHeight: '60vh' }}
           />
         </div>
         <div className="col-md-6 d-flex flex-column justify-content-center align-items-center p-3">
@@ -26,7 +26,7 @@ const ResponderHome = () => {
           <div className=" z-20 mt-3 typing-text">
           <TypingAnimation text=" ' Unity is strength... when there is teamwork and collaboration, wonderful things can be achieved.  ' - Mattie Stepanek "/>
           </div>
-          <a className="btn btn-outline-danger mt-4 z-20 opacity-80" href="/sos-form">
+          <a className="btn btn-danger mt-4 z-20 opacity-80" href="/sos-form">
             In Need of Help?
           </a>
         </div>
@@ -37,9 +37,9 @@ const ResponderHome = () => {
         <div className="flex flex-col items-center justify-center hero mt-5 m-2 p-4">
           <h2 className="custom-heading font-bold text-center my-4">Our Mission</h2>
           <p className="text-[min(1rem,2.5vw)] text-center max-w-4xl px-4">
-          Our mission at <span className="font-bold text-bv">Rescue Channel</span> is to unify and empower rescue agencies worldwide, ensuring swift, coordinated, 
+          Our mission at <span className="font-bold custom-text">Rescue Channel</span> is to unify and empower rescue agencies worldwide, ensuring swift, coordinated, 
           and effective responses to emergencies. By fostering collaboration and sharing resources, we can amplify our collective impact and save more lives. In times 
-          of crisis, <span className="text-bv">every second counts</span>, and our goal is to be the beacon of hope, guiding and supporting the heroes who risk their lives to 
+          of crisis, <span className="custom-text">every second counts</span>, and our goal is to be the beacon of hope, guiding and supporting the heroes who risk their lives to 
           save others. We bring together diverse rescue organizations to form a cohesive, powerful network, streamlining communication and resource-sharing to enhance the 
           speed and effectiveness of emergency responses. Our unwavering commitment to saving lives drives everything we do, leveraging the latest technology and best practices 
           to continuously improve our operations and impact.
@@ -51,7 +51,7 @@ const ResponderHome = () => {
         <div id="joinus" className="flex w-full flex-col align-items-center justify-center hero mt-5 m-2 p-4">
           <h2 className="text-3xl font-bold text-center mb-4 custom-heading">Join Us</h2>
           <p className="text-center px-8 typing-text">
-            <TypingAnimation text=' " Alone, we can do so little; together, we can do so much. " — Helen Keller'/>
+            <TypingAnimation text=' " Alone, we can do so little; together, we can do so much.  — Helen Keller'/>
             
           </p>
           <p className="text-xl text-center px-8 my-4 mb-8 leading-relaxed max-w-5xl">
@@ -60,7 +60,7 @@ const ResponderHome = () => {
           </p>
           <div className="d-flex justify-content-center align-items-center">
             <a href="/signup" className="w-full max-w-md">
-              <button className="btn btn-outline-info w-full max-w-md">Register Your Agency</button>
+              <button className="btn btn-info w-full max-w-md">Register Your Agency</button>
             </a>
           </div>
         </div>        

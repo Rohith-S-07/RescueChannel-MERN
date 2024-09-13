@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     default: 'agency' // Default role value
+  },
+  licenseDocument: {
+    type: String, // Store the path or URL of the uploaded document
+    required: false, // This is optional
   }
 });
 

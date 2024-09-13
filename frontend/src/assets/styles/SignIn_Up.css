@@ -1,7 +1,6 @@
-.wrapper{
-    
-    /* background: linear-gradient(to top right, #373737 0%, #000000 50%, black 100%); */
-    position: absolute;
+.wrapper {
+    background: linear-gradient(to right, #20364b, #2f4f6d);
+    position: relative;
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -13,14 +12,24 @@
 .form-container {
     padding: 10px 30px;
     text-align: center;
-    /* From https://css.glass */
-    /* background: rgba(142, 50, 255, 0.32); */
-    background: rgba(255, 255, 255, 0.454);
-    box-shadow: 0 2px 30px rgb(183, 106, 255) inset;
+    background: rgba(123, 123, 123, 0.146);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px); 
     border-radius: 16px;
     padding: 20px;
     animation: animate-border 4s linear infinite;
-    
+    z-index: 2;
+    position: relative;
+}
+
+.wrapper dotlottie-player {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 30vh;
+    left: 45vw;
+    z-index: 1;
+    opacity: 1;
 }
 
 .form-container .heading {
@@ -30,10 +39,9 @@
     transition-timing-function: ease-in;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
-    background: linear-gradient(#2969ff, #8d14ff);
+    background: linear-gradient(to bottom, #0586ff, #44a5ff);
     background-clip: text;
     color: transparent;
-    /* font-family: cursive; */
 }
 
 form {
@@ -41,10 +49,11 @@ form {
     z-index: 2; 
 }
 
+
 label{
     display: block;
     margin: 5px 0 0 0 ;
-    color: blueviolet;
+    color: #fdc220;
 }
 
 input {
@@ -60,12 +69,12 @@ input {
 }
 
 input:hover {
-    background-color: rgba(248, 234, 255, 0.751);
+    background-color: rgba(255, 255, 255, 0.751);
 }
 
 input:focus {
     background-color: rgba(255, 255, 255, 0.75);
-    color: #1558ff;
+    color: #00188e;
 }
 
 
@@ -87,7 +96,7 @@ form select{
 }
 
 form select option{
-    color: #1558ff;
+    color: #00188e;
 }
 
 form select:hover {
@@ -99,25 +108,9 @@ form select:focus{
     background-color: rgba(255, 255, 255, 0.75);
 }
 
-form button {
-    appearance: none;
-    outline: 0;
-    margin-top: 10px;
-    background: linear-gradient(#1558ff,#5d44ff);
-    border: 0;
-    padding: 10px 10px;
-    color: white;
-    border-radius: 5px;
-    width: 150px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    transition-duration: 0.25s;
-    padding: 5px 10px;
-    cursor: pointer;
-}
 
 .new-user{
-    color: black;
+    color: white;
     font-size: 0.8rem;
     font-weight: lighter;
     margin: 10px 0 0 0 ;

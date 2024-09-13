@@ -1,23 +1,24 @@
 import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../assets/styles/AgencyHomepage.css';
 
-const SideBar = ({ setActiveComponent, handleLogout }) => {
+const SideBar = ({ setActiveComponent, activeComponent, handleLogout }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
   };
 
-  const navigate = useNavigate;
+  const handleClick = (componentName) => {
+    setActiveComponent(componentName);
+  };
 
-  handleLogout = () => {
+  const handleLogoutClick = () => {
     localStorage.removeItem('userId');
-    
     window.location.reload();
-    window.alert("Logged Out Successfully")
+    window.alert("Logged Out Successfully");
   };
 
   return (
@@ -35,8 +36,8 @@ const SideBar = ({ setActiveComponent, handleLogout }) => {
           <li className="nav-item">
             <NavLink
               to="#"
-              className="nav-link"
-              onClick={() => setActiveComponent('Dashboard')}
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+              onClick={() => handleClick('Dashboard')}
             >
               Dashboard
             </NavLink>
@@ -44,8 +45,8 @@ const SideBar = ({ setActiveComponent, handleLogout }) => {
           <li className="nav-item">
             <NavLink
               to="#"
-              className="nav-link"
-              onClick={() => setActiveComponent('All Agencies')}
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+              onClick={() => handleClick('All Agencies')}
             >
               All Agencies
             </NavLink>
@@ -53,17 +54,17 @@ const SideBar = ({ setActiveComponent, handleLogout }) => {
           <li className="nav-item">
             <NavLink
               to="#"
-              className="nav-link"
-              onClick={() => setActiveComponent('Rooms')}
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+              onClick={() => handleClick('Chatrooms')}
             >
-              Rooms
+              Chatrooms
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink
               to="#"
-              className="nav-link"
-              onClick={() => setActiveComponent('Victims Portal')}
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+              onClick={() => handleClick('Victims Portal')}
             >
               Victims Portal
             </NavLink>
@@ -71,14 +72,14 @@ const SideBar = ({ setActiveComponent, handleLogout }) => {
           <li className="nav-item">
             <NavLink
               to="#"
-              className="nav-link"
-              onClick={() => setActiveComponent('Maps Portal')}
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+              onClick={() => handleClick('Maps Portal')}
             >
               Maps Portal
             </NavLink>
           </li>
         </ul>
-        <button onClick={handleLogout} className={`btn btn-danger mt-auto ${isCollapsed ? 'd-none' : ''}`}>
+        <button onClick={handleLogoutClick} className={`btn btn-danger mt-auto ${isCollapsed ? 'd-none' : ''}`}>
           Logout
         </button>
       </div>

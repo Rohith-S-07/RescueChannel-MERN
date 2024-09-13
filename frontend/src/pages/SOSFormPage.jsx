@@ -1,5 +1,4 @@
 import React from 'react';
-import ChopperHelp from '../assets/images/chopper_help.jpg';
 import EmergencyCall from '../assets/images/emergency-call.png';
 
 const SOSFormPage = () => {
@@ -54,7 +53,7 @@ const SOSFormPage = () => {
                <option>50+</option>
              </select>
            </div>
-           <button type="submit" className="btn btn-danger w-100">Notify</button>
+           <button type="submit" className="btn text-light w-100">Notify</button>
          </form>
         </div>
       </div>

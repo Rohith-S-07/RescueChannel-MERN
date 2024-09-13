@@ -1,173 +1,168 @@
-*{
-    font-family: 'Poppins' serif;
+* {
+  font-family: "Poppins" serif;
 }
 
-
-.content-container{
-    padding: 80px 1vw 0 1vw;
+body {
+  background: linear-gradient(to right, #20364b, #2f4f6d);
+  color: white;
 }
 
-/* Page Loading Animation */
+.content-container {
+  padding: 80px 1vw 0 1vw;
+}
+
 .page-content {
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 0.5s forwards;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.5s forwards;
+}
+
+.emg-img {
+  border-radius: 50px;
 }
 
 @keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-
 
 /* Top Bar CSS */
 .custom-navbar {
-    /* From https://css.glass */
-    background: rgba(255, 255, 255, 0.454);
-    box-shadow: 0 2px 15px rgb(183, 106, 255) inset;
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px); 
-    min-height: 50px;
-    border-radius: 0px 0px 10px 10px;
-    
+  background: transparent;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  min-height: 50px;
+  border-radius: 0px 0px 10px 10px;
 }
 
-.navbar-toggler{
-    border-color: blueviolet !important;
-    
+.navbar-toggler {
+  border-color: #fdc220 !important;
+  --bs-navbar-toggler-focus-width: none;
 }
 
-
-.navbar-toggler-icon{
-    color: blueviolet !important;
+.navbar-toggler-icon {
+  color: #fdc220 !important;
 }
 
 .navbar-nav .nav-link {
-color: blueviolet;
-border-radius: 15px;
-border: 1px rgba(255, 255, 255, 0) solid;
+  color: #fdc220;
+  border: 1px rgba(255, 255, 255, 0) solid;
+  border-radius: 10px;
 }
 
 .navbar-nav .nav-link:hover {
-border-radius: 15px;
-color: blueviolet;
-border: 1px blueviolet solid;
-box-shadow: 0 2px 15px rgba(183, 106, 255, 0.808) inset;
+  color: white;
+  background-color: #2f4f6d;
+  border-radius: 10px;
 }
 
 .navbar-nav .nav-link.active {
-    box-shadow: 1px 1px 10px blueviolet;
-    border: 1px blueviolet solid;
-    background-color: blueviolet;
-    color: white !important;
-    border-radius: 15px;
+  background-color: #345879;
+  border-radius: 10px;
+  border-bottom: 1.5px #fdc220 solid;
+  font-weight: bold;
+  color: white !important;
 }
 
 .navbar-nav .nav-item:not(:last-child)::after {
-content: "|";
-color: blueviolet;
-padding-left: 10px;
-padding-right: 10px;
+  content: "|";
+  color: #fdc220;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .navbar-nav .nav-item {
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
 }
 
-.navbar-brand{
-    display: flex;
-    align-items: center;
-    margin-left: 30px;
-    justify-content: space-between;
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  margin-left: 30px;
+  justify-content: space-between;
 }
 
-.text-bv{
-    color: blueviolet !important;
+.custom-text {
+  color: #fdc220 !important;
 }
 
-.custom-heading{
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-weight: 500;
-    background: linear-gradient(blueviolet, rgb(164, 67, 254));
-    text-shadow: .3px .3px 8px rgba(162, 63, 255, 0.336);
-    background-clip: text;
-    color: transparent;
-    
-    /* font-family: "Lucida Handwriting"; */
-    /* font-family: "Segoe Script"; */
-    /* font-family: Papyrus, fantasy; */
-    /* font-family: Harrington; */
+.custom-heading {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-weight: 500;
+  background: linear-gradient(#fdc220, rgb(255, 162, 0));
+  text-shadow: 0.3px 0.3px 8px #fdc22030;
+  background-clip: text;
+  color: transparent;
 }
-
-/* .custom-heading:hover{
-    text-shadow: 1px 1px 20px blueviolet;
-} */
-
-
-
 
 /* Victim Home CSS */
-.hero{
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0.5px 0.5px 4px blueviolet ;
-    
+.hero {
+  background: transparent;
+  border-radius: 20px;
+  box-shadow: 0.5px 0.5px 4px #fdc22060;
 }
 
-
-.hero:hover{
-    box-shadow: -0.5px -0.5px 2px blueviolet ;
-    transform:translate(-0.5px);
-    transition: 200ms ease-in-out;
+.hero:hover {
+  box-shadow: -0.5px -0.5px 2px #fdc22050;
+  transform: translate(-0.5px);
+  transition: 200ms ease-in-out;
 }
 
 /* Agencies Logos */
-.logo-size{
-    height: 120px;
-    width: 140px;
+.logo-size {
+  height: 120px;
+  width: 140px;
+}
+
+/* 
+.accordion-bg .accordion-button {
+  background-color: #345879;
+  outline: none;
+} */
+
+
+.accordion-button:focus {
+  box-shadow: none;
 }
 
 /* Bottom Bar CSS */
-
-footer{
-    box-shadow: 0 2px 15px rgb(183, 106, 255) inset;
-    border-radius: 10px 10px 0 0;
-    margin-top: 20px;
+footer {
+  box-shadow: -0.5px -0.5px 2px #fdc22050;
+  color: white;
+  border-radius: 10px 10px 0 0;
+  margin-top: 20px;
 }
 
-footer .navbar-brand{
-    display: block;
-    margin-bottom: 20px;
+.text-muted {
+  color: white !important;
+}
+
+footer .navbar-brand {
+  display: block;
+  margin-bottom: 20px;
 }
 
 .typing-animation {
-    /* font-family: 'Courier New', Courier, monospace; */
-    font-family: 'Lucida Handwriting', cursive;
+  /* font-family: 'Courier New', Courier, monospace; */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  text-wrap: wrap;
+  white-space: pre;
+  letter-spacing: 1px;
+  font-style: italic;
+  color: rgb(251, 255, 248);
+}
+
+@media (max-width: 990px) {
+  .navbar-nav .nav-item:not(:last-child)::after {
+    content: " ";
+  }
+
+  .navbar-nav .nav-link {
+    width: 100%;
     text-align: center;
-    text-wrap: wrap;
-    white-space: pre;
-    letter-spacing: 1px;
-    font-style: italic;
-    color: rgb(76, 76, 76);
+  }
 }
-
-
-
-@media (max-width:990px) {
-    .navbar-nav .nav-item:not(:last-child)::after {
-        content: " ";
-    }
-
-    .navbar-nav .nav-link {
-        width: 100%;
-        text-align: center;
-    }
-}
-
-
-
-
-
