@@ -9,9 +9,12 @@ import SOSFormPage from './pages/SOSFormPage';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 import AgencyHome from './pages/AgencyHome';
+import AgencyDashboard from './pages/AgencyDashboard';
+import AllAgencies from './pages/AllAgencies';
+import Chatrooms from './pages/Chatrooms';
+import VictimsPortal from './pages/VictimsPortal';
 import AdminDashboard from './components/AdminDashboard';
 import UserManagement from './components/UserManagement';
-
 
 import './assets/styles/LandingPage.css';
 import './assets/styles/AgencyHomepage.css';
@@ -49,12 +52,13 @@ const App = () => {
   return (
     <Router>
       <Routes>
+        {/* Main layout with conditional rendering of Responder or Agency Home */}
         <Route 
           path="/" 
           element={
             <Layout>
               {isValidUser ? (
-                <AgencyHome />
+                <Navigate to="/agency/agency-dashboard" replace />
               ) : (
                 <ResponderHome />
               )}
@@ -66,8 +70,19 @@ const App = () => {
         <Route path="/sos-form" element={<Layout><SOSFormPage /></Layout>} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
+
+        {/* Admin Routes */}
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/users" element={<UserManagement />} />
+
+        {/* Nested Agency Pages */}
+        <Route path="/agency" element={<AgencyHome />}>
+          <Route path="agency-dashboard" element={<AgencyDashboard />} />
+          <Route path="all-agencies" element={<AllAgencies />} />
+          <Route path="chatrooms" element={<Chatrooms />} />
+          <Route path="victims-portal" element={<VictimsPortal />} />
+          {/* Add more agency-related routes as needed */}
+        </Route>
       </Routes>
     </Router>
   );

@@ -1,24 +1,20 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../assets/styles/AgencyHomepage.css';
 
-const SideBar = ({ setActiveComponent, activeComponent, handleLogout }) => {
+const SideBar = ({ setActiveComponent, activeComponent }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-
+  const navigate = useNavigate();
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
   };
 
-  const handleClick = (componentName) => {
-    setActiveComponent(componentName);
-  };
-
   const handleLogoutClick = () => {
     localStorage.removeItem('userId');
-    window.location.reload();
-    window.alert("Logged Out Successfully");
+    navigate('/');
+    window.alert('Logged Out Successfully');
   };
 
   return (
@@ -30,56 +26,65 @@ const SideBar = ({ setActiveComponent, activeComponent, handleLogout }) => {
           <i className="bi bi-chevron-bar-left"></i>
         )}
       </button>
-      <div className="d-flex flex-column align-items-center p-3">
-        <h4 className={`${isCollapsed ? 'd-none' : ''} custom-heading`}>Agency Name</h4>
-        <ul className={`nav flex-column ${isCollapsed ? 'd-none' : ''}`}>
+      <div className="d-flex flex-column align-items-center">
+        <h4 className={`custom-heading ${isCollapsed ? 'd-none' : ''}`}>
+          Agency Name
+        </h4>
+
+        <ul className={`nav flex-column w-100 ${isCollapsed ? 'collapsed-nav' : ''}`}>
           <li className="nav-item">
             <NavLink
-              to="#"
+              to="/agency/agency-dashboard"
               className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-              onClick={() => handleClick('Dashboard')}
+              onClick={() => setActiveComponent('AgencyDashboard')}
             >
-              Dashboard
+              <i className="bi bi-speedometer2 custom-text"></i>
+              {!isCollapsed && <span className='m-2'>Agency Dashboard</span>}
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink
-              to="#"
+              to="/agency/all-agencies"
               className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-              onClick={() => handleClick('All Agencies')}
+              onClick={() => setActiveComponent('All Agencies')}
             >
-              All Agencies
+              <i className="bi bi-building custom-text"></i>
+              {!isCollapsed && <span className='m-2'>All Agencies</span>}
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink
-              to="#"
+              to="/agency/chatrooms"
               className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-              onClick={() => handleClick('Chatrooms')}
+              onClick={() => setActiveComponent('Chatrooms')}
             >
-              Chatrooms
+              <i className="bi bi-chat-dots custom-text"></i>
+              {!isCollapsed && <span className='m-2'>Chatrooms</span>}
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink
-              to="#"
+              to="/agency/victims-portal"
               className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-              onClick={() => handleClick('Victims Portal')}
+              onClick={() => setActiveComponent('Victims Portal')}
             >
-              Victims Portal
+              <i className="bi bi-person-hearts custom-text"></i>
+              {!isCollapsed && <span className='m-2'>Victims Portal</span>}
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink
-              to="#"
+              to="/agency/maps-portal"
               className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-              onClick={() => handleClick('Maps Portal')}
+              onClick={() => setActiveComponent('Maps Portal')}
             >
-              Maps Portal
+              <i className="bi bi-map custom-text"></i>
+              {!isCollapsed && <span className='m-2'>Maps Portal</span>}
             </NavLink>
           </li>
         </ul>
-        <button onClick={handleLogoutClick} className={`btn btn-danger mt-auto ${isCollapsed ? 'd-none' : ''}`}>
+
+        <button onClick={handleLogoutClick} className={`btn btn-danger mt-auto logout-btn ${isCollapsed ? 'd-none' : ''}`}>
           Logout
         </button>
       </div>

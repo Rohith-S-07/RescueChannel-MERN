@@ -11,7 +11,7 @@ const ChatRooms = () => {
     };
 
     return (
-        <div className="container-fluid min-vh-100 p-4">
+        <div className='agency-content hero d-flex flex-column p-3'>
             <h1 className="text-center text-dark mb-3">Rooms</h1>
             <p className="text-muted text-center">
                 Here you can see all the rooms where your rescue team is currently coordinating with other rescue teams.

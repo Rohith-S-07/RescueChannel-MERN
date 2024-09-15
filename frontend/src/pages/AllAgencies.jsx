@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const AllAgencies = ({ agencies }) => {
   return (
-    <div className=" hero d-flex flex-column p-3">
+    <div className="agency-content hero d-flex flex-column p-3">
       {/* Search Bar */}
       <div className="row p-3">
         <div className="col-md-12 d-flex align-items-center">

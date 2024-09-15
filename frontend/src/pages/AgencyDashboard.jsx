@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Dashboard = ({ posts }) => {
   return (
-    <div className="hero p-3">
+    <div className="agency-content hero p-3">
       {/* SearchBar */}
       <div className="row p-3">
         <div className="col-md-8 d-flex">
