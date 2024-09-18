@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import ConfirmationModal from './ConfirmationModal';
+import NotificationModal from './NotificationModal';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const UserManagement = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
+  const [pendingAction, setPendingAction] = useState(null);
+  const [notificationMessage, setNotificationMessage] = useState('');
 
   // Fetch users from the backend
   useEffect(() => {
@@ -20,35 +27,59 @@ const UserManagement = () => {
       });
   }, []);
 
-  // Handle user approval
-  const handleApprove = (id) => {
-    axios.put(`http://localhost:5000/api/admin/users/${id}/approve`, {}, { withCredentials: true })
+  // Handle user approval and toggle status between approved and onprocess
+  const handleToggleStatus = (id, currentStatus) => {
+    const newStatus = currentStatus === 'approved' ? 'onprocess' : 'approved';
+    setPendingAction({ type: 'status', id, newStatus });
+    setIsConfirmModalOpen(true);
+  };
+
+  const confirmStatusChange = () => {
+    const { id, newStatus } = pendingAction;
+
+    axios.put(`http://localhost:5000/api/admin/users/${id}/status`, { status: newStatus }, { withCredentials: true })
       .then(response => {
-        setUsers(users.map(user => (user._id === id ? { ...user, status: 'approved' } : user)));
+        setUsers(users.map(user =>
+          user._id === id ? { ...user, status: newStatus } : user
+        ));
+        setNotificationMessage('Agency status updated successfully');
       })
       .catch(error => {
-        console.error('Error approving user:', error);
-        setError('Error approving user');
+        console.error('Error updating agency status:', error);
+        setError('Error updating agency status');
+        setNotificationMessage('Error updating agency status');
+      })
+      .finally(() => {
+        setIsConfirmModalOpen(false);
+        setIsNotificationModalOpen(true);
+        setPendingAction(null);
       });
   };
 
   // Handle user deletion
   const handleDelete = (id) => {
-    const isConfirmed = window.confirm("Are you sure you want to delete this user?");
-    
-    if (isConfirmed) {
-      axios.delete(`http://localhost:5000/api/admin/users/${id}`, { withCredentials: true })
-        .then(response => {
-          setUsers(users.filter(user => user._id !== id));
-          window.alert("User deleted successfully");
-        })
-        .catch(error => {
-          console.error('Error deleting user:', error);
-          setError('Error deleting user');
-        });
-    } else {
-      window.alert("User deletion canceled");
-    }
+    setPendingAction({ type: 'delete', id });
+    setIsConfirmModalOpen(true);
+  };
+
+  const confirmDeletion = () => {
+    const { id } = pendingAction;
+
+    axios.delete(`http://localhost:5000/api/admin/users/${id}`, { withCredentials: true })
+      .then(response => {
+        setUsers(users.filter(user => user._id !== id));
+        setNotificationMessage('Agency deleted successfully');
+      })
+      .catch(error => {
+        console.error('Error deleting agency:', error);
+        setError('Error deleting agency');
+        setNotificationMessage('Error deleting agency');
+      })
+      .finally(() => {
+        setIsConfirmModalOpen(false);
+        setIsNotificationModalOpen(true);
+        setPendingAction(null);
+      });
   };
 
   // Show loading spinner or error message
@@ -56,23 +87,71 @@ const UserManagement = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div>
-      <h1>Manage Users</h1>
+    <div className="hero p-3">
+      <h2 className="mb-3 custom-heading">Manage Agencies</h2>
       {users.length === 0 ? (
-        <p>No users to manage</p>
+        <p>No agencies to manage</p>
       ) : (
-        <ul>
-          {users.map(user => (
-            <li key={user._id}>
-              {user.name} - {user.email} - {user.status}
-              {user.status !== 'approved' && (
-                <button onClick={() => handleApprove(user._id)}>Approve</button>
-              )}
-              <button onClick={() => handleDelete(user._id)}>Delete</button>
-            </li>
-          ))}
-        </ul>
+        <table className="table table-striped table-bordered rounded">
+          <thead className="thead-dark">
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Document</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map(user => (
+              <tr key={user._id}>
+                <td><b>{user.name}</b></td>
+                <td>{user.email}</td>
+                <td><i>{user.status === 'approved' ? 'Approved' : 'On Process'}</i></td>
+                <td>
+                  {user.licenseDocument && (
+                    <a
+                      href={`http://localhost:5000/${user.licenseDocument}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className='btn btn-success'
+                    >
+                      View Document
+                    </a>
+                  )}
+                </td>
+                <td>
+                  <button
+                    className={`btn ${user.status === 'approved' ? 'btn-warning' : 'btn-success'} btn-sm me-2`}
+                    onClick={() => handleToggleStatus(user._id, user.status)}
+                  >
+                    {user.status === 'approved' ? 'Revoke Approval' : 'Approve'}
+                  </button>
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => handleDelete(user._id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
+
+      <ConfirmationModal
+        isOpen={isConfirmModalOpen}
+        onRequestClose={() => setIsConfirmModalOpen(false)}
+        onConfirm={pendingAction?.type === 'delete' ? confirmDeletion : confirmStatusChange}
+        message={`Are you sure you want to ${pendingAction?.type === 'delete' ? 'delete this Agency?' : `change the status to ${pendingAction?.newStatus}?`}`}
+      />
+
+      <NotificationModal
+        isOpen={isNotificationModalOpen}
+        onRequestClose={() => setIsNotificationModalOpen(false)}
+        message={notificationMessage}
+      />
     </div>
   );
 };

@@ -5,7 +5,7 @@ const { getAllUsers, approveUser, deleteUser } = require('../controllers/adminCo
 router.get('/users', getAllUsers);
 
 // Route to approve a user
-router.put('/users/:id/approve', approveUser);
+router.put('/users/:id/status', approveUser); 
 
 // Route to delete a user
 router.delete('/users/:id', deleteUser);

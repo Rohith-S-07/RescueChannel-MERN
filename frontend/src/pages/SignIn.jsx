@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../assets/styles/SignIn_Up.css'
+import '../assets/styles/SignIn_Up.css';
 import RescueLogo from '../assets/images/rescue-logo.png';
-import LottiePlayer from '../components/LottiePlayer'
+import LottiePlayer from '../components/LottiePlayer';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -16,6 +16,12 @@ const SignIn = () => {
   const [error, setError] = useState('');
 
   const navigate = useNavigate();
+
+  // Static admin credentials
+  const adminCredentials = {
+    email: 'rcadmin@gmail.com',
+    password: 'RC.Admin@321'
+  };
 
   const validateForm = () => {
     let valid = true;
@@ -45,29 +51,42 @@ const SignIn = () => {
     e.preventDefault();
 
     if (validateForm()) {
-      try {
-        const response = await axios.post('http://localhost:5000/api/auth/login', 
-          { email, password }, 
-          { withCredentials: true }
-        );
-    
-        if (response.status === 200) {
-          const userId = response.data.userId;
-          localStorage.setItem('userId', userId);
-    
-          setSuccess('Login successful!');
-          setError('');
-          
-          navigate('/');
-          window.location.reload();
-          
-        } else {
-          setError('Login failed. Please check your credentials and try again.');
+      // Check if credentials match admin static credentials
+      if (email === adminCredentials.email && password === adminCredentials.password) {
+        // Set localStorage as admin
+        localStorage.setItem('userRole', 'admin');
+        setSuccess('Admin login successful!');
+        setError('');
+
+        // Navigate to admin page
+        navigate('/admin');
+      } else {
+        // Handle normal user login through API
+        try {
+          const response = await axios.post('http://localhost:5000/api/auth/login',
+            { email, password },
+            { withCredentials: true }
+          );
+
+          if (response.status === 200) {
+            const userId = response.data.userId;
+            localStorage.setItem('userId', userId);
+            localStorage.setItem('userRole', 'user'); // Setting normal user role
+
+            setSuccess('Login successful!');
+            setError('');
+
+            navigate('/');
+            window.location.reload();
+
+          } else {
+            setError('Login failed. Please check your credentials and try again.');
+            setSuccess('');
+          }
+        } catch (error) {
+          setError(error.response?.data.message || 'An error occurred. Please try again later.');
           setSuccess('');
         }
-       } catch (error) {
-        setError(error.response?.data.message || 'An error occurred. Please try again later.');
-        setSuccess('');
       }
     }
   };
@@ -111,7 +130,7 @@ const SignIn = () => {
         </form>
         {error && <div className="text-danger mt-3 text-center">{error}</div>}
         {success && <div className="text-success mt-3 text-center">{success}</div>}
-        <p class="new-user">Haven't Registered yet?<a href="/signup" class="register-link">Register now!</a></p>
+        <p className="new-user">Haven't Registered yet?<a href="/signup" className="register-link">Register now!</a></p>
       </div>
     </div>
   );

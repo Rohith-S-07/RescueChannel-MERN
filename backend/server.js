@@ -4,36 +4,34 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db'); // Import the connectDB function
 const fs = require('fs');
 const path = require('path');
+const app = express();
 
-// Ensure the uploads directory exists
+
 const uploadsDir = path.join(__dirname, 'uploads');
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir);
 }
 
-// Load environment variables from .env file
 dotenv.config();
 
-const app = express();
-
-// Connect to MongoDB
 connectDB();
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Configure CORS
 const corsOptions = {
-  origin: 'http://localhost:3000', // Allow your React app's origin
-  credentials: true // Allow cookies to be sent
+  origin: 'http://localhost:3000',
+  credentials: true
 };
 
+
+
 app.use(cors(corsOptions));
-
-
 app.use(express.json());
 
 // Your routes
 const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
-
 
 
 app.use('/api/auth', authRoutes);

@@ -13,7 +13,7 @@ import AgencyDashboard from './pages/AgencyDashboard';
 import AllAgencies from './pages/AllAgencies';
 import Chatrooms from './pages/Chatrooms';
 import VictimsPortal from './pages/VictimsPortal';
-import AdminDashboard from './components/AdminDashboard';
+import AdminHome from './pages/AdminHome';
 import UserManagement from './components/UserManagement';
 
 import './assets/styles/LandingPage.css';
@@ -72,7 +72,7 @@ const App = () => {
         <Route path="/signin" element={<SignIn />} />
 
         {/* Admin Routes */}
-        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin" element={<AdminHome />} />
         <Route path="/admin/users" element={<UserManagement />} />
 
         {/* Nested Agency Pages */}
