@@ -104,8 +104,8 @@ form select:hover {
 }
 
 form select:focus{
-    width: 300px;
     background-color: rgba(255, 255, 255, 0.75);
+    color: #00188e;
 }
 
 
@@ -117,7 +117,7 @@ form select:focus{
 }
 
 .register-link{
-    color: green;
+    color: rgb(0, 119, 255);
     font-size: 15px;
     font-weight: 700;
     text-decoration: none;
@@ -129,4 +129,5 @@ form select:focus{
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }

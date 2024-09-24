@@ -1,38 +1,36 @@
 const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 
-
 const registerUser = async (req, res) => {
-  const { name, email, password, status, role } = req.body;
-  const licenseDocument = req.file ? req.file.path : null; // Handle file upload
+  const { name, email, password, status, role, region, district, state, description } = req.body;
+  const licenseDocument = req.file ? req.file.path : null;
 
   if (!password) {
     return res.status(400).json({ message: 'Password is required' });
   }
 
   try {
-    // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: 'User already exists' });
     }
-
-    // Hash password
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    // Create new user
     const newUser = new User({
       name,
       email,
       password: hashedPassword,
       status,
       role,
-      licenseDocument, // Save file path in user document
+      licenseDocument,
+      region,
+      district,
+      state,
+      description,
     });
 
     await newUser.save();
 
-    // Respond with success
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
     console.error('Error registering user:', error);
@@ -46,13 +44,11 @@ const authUser = async (req, res) => {
   const { email, password } = req.body;
   console.log(email);
   try {
-    // Check if user exists
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    // Check password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid credentials' });
@@ -60,11 +56,11 @@ const authUser = async (req, res) => {
 
     res.status(200).json({ 
       message: 'Logged in successfully', 
-      userId: user._id // Include _id in the response
+      userId: user._id
     });
 
   } catch (error) {
-    console.error('Authentication error:', error); // Log the error for debugging
+    console.error('Authentication error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };

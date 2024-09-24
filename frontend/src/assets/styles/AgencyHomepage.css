@@ -70,16 +70,16 @@
 @media (max-width: 768px) {
   .sidebar {
     width: 220px;
-    padding: 10px;
+    padding: 5px;
   }
 
   .sidebar.collapsed {
-    width: 70px;
+    width: 57px;
   }
 
   .agency-content {
-    margin-left: 0;
-    width: 100%;
+    margin-left: 45px;
+    width: calc(100% - 35px);
     padding-left: 25px;
   }
 

@@ -23,6 +23,10 @@ const SignIn = () => {
     password: 'RC.Admin@321'
   };
 
+  const handleNavigateHome = () =>{
+    navigate('/');
+  }
+
   const validateForm = () => {
     let valid = true;
     const newErrors = {
@@ -71,7 +75,7 @@ const SignIn = () => {
           if (response.status === 200) {
             const userId = response.data.userId;
             localStorage.setItem('userId', userId);
-            localStorage.setItem('userRole', 'user'); // Setting normal user role
+            localStorage.setItem('userRole', 'user');
 
             setSuccess('Login successful!');
             setError('');
@@ -95,7 +99,7 @@ const SignIn = () => {
     <div className="wrapper d-flex justify-content-center align-items-center min-vh-100">
       <LottiePlayer />
       <div className="w-100 form-container" style={{ maxWidth: '400px' }}>
-        <div className='brand'>
+        <div className="brand" onClick={handleNavigateHome}>
           <img src={RescueLogo} alt="RC" height={50} />
           <span className="custom-heading fs-3">Rescue Channel</span>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import RescueLogo from '../assets/images/rescue-logo.png';
-import UserManagement from '../components/UserManagement'; // Assuming it's in the same directory
+import UserManagement from '../components/UserManagement';
 
 
 const AdminHome = () => {
@@ -16,7 +16,6 @@ const AdminHome = () => {
     }
   };
 
-  // Function to switch between components
   const renderActiveComponent = () => {
     switch (activeComponent) {
       case 'userManagement':

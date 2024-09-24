@@ -32,10 +32,13 @@ app.use(express.json());
 // Your routes
 const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
-
+const agencyRoutes = require('./routes/agencyRoutes');
+const sosRoutes = require('./routes/sosRoutes');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/', agencyRoutes);
+app.use('/api/sos', sosRoutes);
 
 
 const PORT = process.env.PORT || 5000;

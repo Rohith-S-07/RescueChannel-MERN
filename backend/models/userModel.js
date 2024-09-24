@@ -1,3 +1,4 @@
+// Updated user schema
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
@@ -16,16 +17,32 @@ const userSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    default: 'onprocess', // Default status value
+    default: 'onprocess',
   },
   role: {
     type: String,
-    default: 'agency' // Default role value
+    default: 'agency',
   },
   licenseDocument: {
-    type: String, // Store the path or URL of the uploaded document
-    required: false, // This is optional
-  }
+    type: String,
+    required: false,
+  },
+  region: {
+    type: String,
+    required: true,
+  },
+  district: {
+    type: String,
+    required: true,
+  },
+  state: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: false,
+  },
 });
 
 const User = mongoose.model('User', userSchema);

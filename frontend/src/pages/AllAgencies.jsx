@@ -1,7 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const AllAgencies = ({ agencies }) => {
+const AllAgencies = () => {
+  const [agencies, setAgencies] = useState([]);
+
+  useEffect(() => {
+    const fetchAgencies = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/agencies', { credentials: 'include' });
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setAgencies(data);
+      } catch (error) {
+        console.error('Error fetching agencies:', error);
+      }
+    };
+
+    fetchAgencies();
+  }, []);
+
   return (
     <div className="agency-content hero d-flex flex-column p-3">
       {/* Search Bar */}
@@ -12,61 +31,33 @@ const AllAgencies = ({ agencies }) => {
             className="form-control"
             placeholder="Search a particular Agency..."
           />
-          {/* <div className="dropdown ms-3">
-            <button
-              className="btn btn-secondary dropdown-toggle"
-              type="button"
-              id="filterDropdown"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <i className="fas fa-bars"></i>
-            </button>
-            <ul className="dropdown-menu" aria-labelledby="filterDropdown">
-              <li className="text-center fw-bold">Filter By</li>
-              <li><a className="dropdown-item" href="#">RO Status</a></li>
-              <li><a className="dropdown-item" href="#">Region</a></li>
-            </ul>
-          </div> */}
-          <button className="btn btn-ghost ms-3">
-            <div className="position-relative">
-              <i className="fas fa-bell"></i>
-              <span className="position-absolute top-0 start-100 translate-middle badge bg-danger rounded-circle">
-                <span className="visually-hidden">unread messages</span>
-              </span>
-            </div>
-          </button>
         </div>
       </div>
 
       {/* Agencies List */}
       <div className="row px-3 gy-4">
-        {/* {agencies.map((agency, index) => ( */}
-          <div className="col-12">
+        {agencies.map((agency) => (
+          <div className="col-12" key={agency._id}>
             <div className="bg-light rounded shadow-sm p-4 border">
               <div className="d-flex justify-content-between">
                 <div>
-                  <h3 className="text-dark">Agency Name</h3>
-                  <p className="text-muted">Agency Locality</p>
-                  <p className="text-secondary">
-                    Agency About
+                  <h3 className="text-primary">{agency.name}</h3>
+                  <p className="text-dark">
+                  <i className="bi bi-geo-alt me-1"></i>
+                    {agency.region}, {agency.district}, {agency.state}
                   </p>
+                  <p className="text-secondary">{agency.description}</p>
                 </div>
-                <div className="d-flex flex-column justify-content-between align-items-end">
-                  <p className="d-flex align-items-center text-muted">
-                    <i className="fas fa-envelope me-2"></i>
-                    Mail id
-                  </p>
-                  
-                  <p className="d-flex align-items-center text-muted">
-                    <i className="fas fa-phone me-2"></i>
-                    Agency Phone
+                <div className="d-flex flex-column justify-content-between align-items-end text-info">
+                  <p className="d-flex align-items-center">
+                  <i className="bi bi-envelope me-2"></i>
+                    {agency.email}
                   </p>
                 </div>
               </div>
             </div>
           </div>
-        {/* ))} */}
+        ))}
       </div>
     </div>
   );

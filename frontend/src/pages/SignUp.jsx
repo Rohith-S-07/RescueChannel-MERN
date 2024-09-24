@@ -9,7 +9,11 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [licenseDocument, setLicenseDocument] = useState(null); // State for license or document upload
+  const [region, setRegion] = useState('');
+  const [district, setDistrict] = useState('');
+  const [state, setState] = useState('');
+  const [description, setDescription] = useState('');
+  const [licenseDocument, setLicenseDocument] = useState(null);
   const [errors, setErrors] = useState({
     name: '',
     email: '',
@@ -18,6 +22,9 @@ const SignUp = () => {
   });
 
   const navigate = useNavigate();
+  const handleNavigateHome = () =>{
+      navigate('/');
+  }
 
   const validateForm = () => {
     let valid = true;
@@ -62,14 +69,18 @@ const SignUp = () => {
     e.preventDefault();
 
     if (validateForm()) {
-      const formData = new FormData(); // Use FormData to handle file uploads
+      const formData = new FormData();
       formData.append('name', name);
       formData.append('email', email);
       formData.append('password', password);
       formData.append('status', 'onprocess');
       formData.append('role', 'agency');
+      formData.append('region', region);
+      formData.append('district', district);
+      formData.append('state', state);
+      formData.append('description', description);
       if (licenseDocument) {
-        formData.append('licenseDocument', licenseDocument); // Append file to the form data
+        formData.append('licenseDocument', licenseDocument);
       }
 
       try {
@@ -90,7 +101,7 @@ const SignUp = () => {
   const onChange = (e) => {
     const { name, value, files } = e.target;
     if (name === 'licenseDocument') {
-      setLicenseDocument(files[0]); // Set the file selected by the user
+      setLicenseDocument(files[0]);
     } else {
       switch (name) {
         case 'name':
@@ -105,6 +116,18 @@ const SignUp = () => {
         case 'confirmPassword':
           setConfirmPassword(value);
           break;
+        case 'region':
+          setRegion(value);
+          break;
+        case 'district':
+          setDistrict(value);
+          break;
+        case 'state':
+          setState(value);
+          break;
+        case 'description':
+          setDescription(value);
+          break;
         default:
           break;
       }
@@ -112,61 +135,130 @@ const SignUp = () => {
   };
 
   return (
-    <div className="wrapper d-flex justify-content-center align-items-center min-vh-100">
-      <LottiePlayer/>
-      <div className="w-100 form-container" style={{ maxWidth: '400px' }}>
-        <div className="brand">
-          <img src={RescueLogo} alt="RC" height={60} className='mb-3' />
+    <div className="wrapper d-flex justify-content-center align-items-center min-vh-100 m-3">
+      <LottiePlayer />
+      <div className="w-100 form-container" style={{ maxWidth: '600px' }}>
+        <div className="brand text-center mb-1" onClick={handleNavigateHome}>
+          <img src={RescueLogo} alt="RC" height={60} className="mb-2" />
           <span className="custom-heading fs-3">Rescue Channel</span>
         </div>
-        <h2 className="heading">Register your Agency</h2>
+        <h2 className="heading text-center mb-1">Register your Agency</h2>
         <form onSubmit={onSubmit}>
-          <div className="form-group">
-            <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              className={`form-control ${errors.name ? 'is-invalid' : ''}`}
-              name="name"
-              value={name}
-              onChange={onChange}
-            />
-            {errors.name && <div className="invalid-feedback">{errors.name}</div>}
+
+          {/* Row for Name and Email */}
+          <div className="row mb-1">
+            <div className="col-md-6">
+              <div className="form-group">
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  className={`form-control ${errors.name ? 'is-invalid' : ''}`}
+                  name="name"
+                  value={name}
+                  onChange={onChange}
+                />
+                {errors.name && <div className="invalid-feedback">{errors.name}</div>}
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                  name="email"
+                  value={email}
+                  onChange={onChange}
+                />
+                {errors.email && <div className="invalid-feedback">{errors.email}</div>}
+              </div>
+            </div>
           </div>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              className={`form-control ${errors.email ? 'is-invalid' : ''}`}
-              name="email"
-              value={email}
-              onChange={onChange}
-            />
-            {errors.email && <div className="invalid-feedback">{errors.email}</div>}
+
+          {/* Row for Password and Confirm Password */}
+          <div className="row mb-1">
+            <div className="col-md-6">
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+                  name="password"
+                  value={password}
+                  onChange={onChange}
+                />
+                {errors.password && <div className="invalid-feedback">{errors.password}</div>}
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="form-group">
+                <label htmlFor="confirmPassword">Confirm Password</label>
+                <input
+                  type="password"
+                  className={`form-control ${errors.confirmPassword ? 'is-invalid' : ''}`}
+                  name="confirmPassword"
+                  value={confirmPassword}
+                  onChange={onChange}
+                />
+                {errors.confirmPassword && <div className="invalid-feedback">{errors.confirmPassword}</div>}
+              </div>
+            </div>
           </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              className={`form-control ${errors.password ? 'is-invalid' : ''}`}
-              name="password"
-              value={password}
-              onChange={onChange}
-            />
-            {errors.password && <div className="invalid-feedback">{errors.password}</div>}
+
+          {/* Row for Region, District, and State */}
+          <div className="row mb-1">
+            <div className="col-md-4">
+              <div className="form-group">
+                <label htmlFor="region">Region</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="region"
+                  value={region}
+                  onChange={onChange}
+                />
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="form-group">
+                <label htmlFor="district">District</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="district"
+                  value={district}
+                  onChange={onChange}
+                />
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="form-group">
+                <label htmlFor="state">State</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="state"
+                  value={state}
+                  onChange={onChange}
+                />
+              </div>
+            </div>
           </div>
-          <div className="form-group">
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <input
-              type="password"
-              className={`form-control ${errors.confirmPassword ? 'is-invalid' : ''}`}
-              name="confirmPassword"
-              value={confirmPassword}
+
+          {/* Row for Description */}
+          <div className="form-group mb-1">
+            <label htmlFor="description">Description</label>
+            <textarea
+              className="form-control"
+              name="description"
+              value={description}
               onChange={onChange}
+              rows="4" // Increased height
             />
-            {errors.confirmPassword && <div className="invalid-feedback">{errors.confirmPassword}</div>}
           </div>
-          <div className="form-group">
-            <label htmlFor="licenseDocument">License or Documents</label>
+
+          <div className="form-group mb-3">
+            <label htmlFor="licenseDocument">Upload License Document</label>
             <input
               type="file"
               className="form-control"
@@ -174,11 +266,13 @@ const SignUp = () => {
               onChange={onChange}
             />
           </div>
-          <button type="submit" className="mt-3 btn btn-warning">Register</button>
+
+          <button type="submit" className="btn btn-success">
+            Register
+          </button>
         </form>
-        <p className="new-user mt-3 text-center">
-          Already have an account? <a href="/signin" className="register-link">Sign In</a>
-        </p>
+
+        <p className="new-user">Already Registered?<a href="/signin" className="register-link">Sign In now!</a></p>
       </div>
     </div>
   );

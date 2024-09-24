@@ -114,7 +114,7 @@ const UserManagement = () => {
                       href={`http://localhost:5000/${user.licenseDocument}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className='btn btn-success'
+                      className='btn btn-success btn-sm'
                     >
                       View Document
                     </a>
@@ -125,12 +125,14 @@ const UserManagement = () => {
                     className={`btn ${user.status === 'approved' ? 'btn-warning' : 'btn-success'} btn-sm me-2`}
                     onClick={() => handleToggleStatus(user._id, user.status)}
                   >
+                    <i class="bi bi-pencil-square me-2"></i>
                     {user.status === 'approved' ? 'Revoke Approval' : 'Approve'}
                   </button>
                   <button
                     className="btn btn-danger btn-sm"
                     onClick={() => handleDelete(user._id)}
                   >
+                    <i class="bi bi-trash me-2"></i>
                     Delete
                   </button>
                 </td>

@@ -13,6 +13,8 @@ import AgencyDashboard from './pages/AgencyDashboard';
 import AllAgencies from './pages/AllAgencies';
 import Chatrooms from './pages/Chatrooms';
 import VictimsPortal from './pages/VictimsPortal';
+import MapsPortal from './pages/MapsPortal'
+import AdminRoute from './components/AdminRoute';
 import AdminHome from './pages/AdminHome';
 import UserManagement from './components/UserManagement';
 
@@ -72,8 +74,10 @@ const App = () => {
         <Route path="/signin" element={<SignIn />} />
 
         {/* Admin Routes */}
-        <Route path="/admin" element={<AdminHome />} />
-        <Route path="/admin/users" element={<UserManagement />} />
+        <Route element={<AdminRoute />}>
+          <Route path="/admin" element={<AdminHome />} />
+          <Route path="/admin/users" element={<UserManagement />} />
+        </Route>
 
         {/* Nested Agency Pages */}
         <Route path="/agency" element={<AgencyHome />}>
@@ -81,6 +85,7 @@ const App = () => {
           <Route path="all-agencies" element={<AllAgencies />} />
           <Route path="chatrooms" element={<Chatrooms />} />
           <Route path="victims-portal" element={<VictimsPortal />} />
+          <Route path="maps-portal" element={<MapsPortal />} />
           {/* Add more agency-related routes as needed */}
         </Route>
       </Routes>

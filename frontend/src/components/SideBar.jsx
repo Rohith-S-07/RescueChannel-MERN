@@ -1,21 +1,43 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import NotificationModal from './NotificationModal';
+import ConfirmationModal from './ConfirmationModal'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../assets/styles/AgencyHomepage.css';
 
 const SideBar = ({ setActiveComponent, activeComponent }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const navigate = useNavigate();
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
   };
 
   const handleLogoutClick = () => {
-    localStorage.removeItem('userId');
-    navigate('/');
-    window.alert('Logged Out Successfully');
+    setIsConfirmationOpen(true);
   };
+
+  const handleConfirmLogout = () => {
+    setIsConfirmationOpen(false);
+    localStorage.clear();
+    setIsNotificationOpen(true);
+    
+    setTimeout(() => {
+      setIsNotificationOpen(false);
+      navigate('/');
+      window.location.reload();
+    }, 2000);
+  };
+
+  const closeConfirmationModal = () => {
+    setIsConfirmationOpen(false);
+  };
+  const closeNotificationModal = () => {
+    setIsNotificationOpen(false);
+  };
+
 
   return (
     <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
@@ -88,6 +110,22 @@ const SideBar = ({ setActiveComponent, activeComponent }) => {
           Logout
         </button>
       </div>
+
+
+      {/* Confirmation Modal */}
+      <ConfirmationModal
+        isOpen={isConfirmationOpen}
+        onRequestClose={closeConfirmationModal}
+        onConfirm={handleConfirmLogout}
+        message="Are you sure you want to log out?"
+      />
+
+      {/* Notification Modal */}
+      <NotificationModal
+        isOpen={isNotificationOpen}
+        onRequestClose={closeNotificationModal}
+        message="Logged Out Successfully"
+      />
     </div>
   );
 };
