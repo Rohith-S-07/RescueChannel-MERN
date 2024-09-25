@@ -2,7 +2,7 @@ const SOS = require('../models/sosModel');
 
 exports.getAllSOS = async (req, res) => {
   try {
-    const reports = await SOS.find().sort({ createdAt: -1 }); // Sort by created date
+    const reports = await SOS.find().sort({ createdAt: -1 });
     res.status(200).json(reports);
   } catch (error) {
     console.error('Error fetching SOS reports:', error);
@@ -12,13 +12,14 @@ exports.getAllSOS = async (req, res) => {
 
 exports.createSOS = async (req, res) => {
   try {
-    const { respondentName, phoneNumber, emergencyType, affectedPeople } = req.body;
+    const { respondentName, phoneNumber, emergencyType, affectedPeople, location } = req.body;
 
     const newSOS = new SOS({
       respondentName,
       phoneNumber,
       emergencyType,
       affectedPeople: Number(affectedPeople),
+      location,
       createdAt: new Date(),
     });
 
@@ -29,4 +30,3 @@ exports.createSOS = async (req, res) => {
     res.status(500).json({ message: 'Error reporting SOS', error });
   }
 };
-

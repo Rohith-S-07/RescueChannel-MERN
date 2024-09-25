@@ -42,7 +42,6 @@ const registerUser = async (req, res) => {
 // Authenticate a user
 const authUser = async (req, res) => {
   const { email, password } = req.body;
-  console.log(email);
   try {
     const user = await User.findOne({ email });
     if (!user) {
@@ -53,10 +52,11 @@ const authUser = async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
-
     res.status(200).json({ 
       message: 'Logged in successfully', 
-      userId: user._id
+      userId: user._id,
+      name: user.name,
+      email: user.email
     });
 
   } catch (error) {
@@ -64,6 +64,7 @@ const authUser = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
 
 const validateUserId = async (req, res) => {
   const { id } = req.params;

@@ -6,10 +6,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../assets/styles/AgencyHomepage.css';
 
-const SideBar = ({ setActiveComponent, activeComponent }) => {
+const SideBar = ({ setActiveComponent}) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const agencyName = localStorage.getItem('userName') || 'Agency Name';
+
   const navigate = useNavigate();
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
@@ -26,7 +28,6 @@ const SideBar = ({ setActiveComponent, activeComponent }) => {
     
     setTimeout(() => {
       setIsNotificationOpen(false);
-      navigate('/');
       window.location.reload();
     }, 2000);
   };
@@ -49,8 +50,9 @@ const SideBar = ({ setActiveComponent, activeComponent }) => {
         )}
       </button>
       <div className="d-flex flex-column align-items-center">
-        <h4 className={`custom-heading ${isCollapsed ? 'd-none' : ''}`}>
-          Agency Name
+        <h4 className={`custom-heading fs-5 ${isCollapsed ? 'd-none' : ''}`}>
+          {agencyName? `${agencyName}`: 'Guest'}
+          
         </h4>
 
         <ul className={`nav flex-column w-100 ${isCollapsed ? 'collapsed-nav' : ''}`}>

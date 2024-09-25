@@ -59,9 +59,14 @@ const ResponderHome = () => {
             interested in working with us, please register your agency by clicking the button below.
           </p>
           <div className="d-flex justify-content-center align-items-center">
-            <a href="/signup" className="w-full max-w-md">
-              <button className="btn btn-info w-full max-w-md">Register Your Agency</button>
+            <a href="/signin" className="w-full max-w-md ">
+              <button className="btn btn-success w-full max-w-md">Sign In</button>
             </a>
+
+            <a href="/signup" className="w-full max-w-md ms-3">
+              <button className="btn btn-primary w-full max-w-md">Register Your Agency</button>
+            </a>
+
           </div>
         </div>        
 

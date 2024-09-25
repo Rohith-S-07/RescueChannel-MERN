@@ -34,11 +34,14 @@ const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const agencyRoutes = require('./routes/agencyRoutes');
 const sosRoutes = require('./routes/sosRoutes');
+const resourceRoutes = require('./routes/resourcesRoutes');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/', agencyRoutes);
 app.use('/api/sos', sosRoutes);
+app.use('/api/resources', resourceRoutes);
+
 
 
 const PORT = process.env.PORT || 5000;

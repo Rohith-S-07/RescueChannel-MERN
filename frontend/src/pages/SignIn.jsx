@@ -55,34 +55,33 @@ const SignIn = () => {
     e.preventDefault();
 
     if (validateForm()) {
-      // Check if credentials match admin static credentials
       if (email === adminCredentials.email && password === adminCredentials.password) {
-        // Set localStorage as admin
+        // Admin login
         localStorage.setItem('userRole', 'admin');
         setSuccess('Admin login successful!');
         setError('');
-
-        // Navigate to admin page
         navigate('/admin');
       } else {
         // Handle normal user login through API
         try {
-          const response = await axios.post('http://localhost:5000/api/auth/login',
+          const response = await axios.post('http://localhost:5000/api/auth/login', 
             { email, password },
             { withCredentials: true }
           );
 
           if (response.status === 200) {
-            const userId = response.data.userId;
+            const { userId, name, email } = response.data;
+
+            // Store user information in localStorage
             localStorage.setItem('userId', userId);
             localStorage.setItem('userRole', 'user');
+            localStorage.setItem('userName', name); // Store the user's name
+            localStorage.setItem('userEmail', email); // Store the user's email
 
             setSuccess('Login successful!');
             setError('');
-
             navigate('/');
             window.location.reload();
-
           } else {
             setError('Login failed. Please check your credentials and try again.');
             setSuccess('');
@@ -94,6 +93,7 @@ const SignIn = () => {
       }
     }
   };
+
 
   return (
     <div className="wrapper d-flex justify-content-center align-items-center min-vh-100">

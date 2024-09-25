@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import RescueLogo from '../assets/images/rescue-logo.png';
 import UserManagement from '../components/UserManagement';
+import NotificationModal from '../components/NotificationModal';
+import ConfirmationModal from '../components/ConfirmationModal';
 
 
 const AdminHome = () => {
   const [activeComponent, setActiveComponent] = useState('userManagement');
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleNavLinkClick = (component) => {
     setActiveComponent(component);
@@ -16,12 +21,35 @@ const AdminHome = () => {
     }
   };
 
+  const handleLogoutClick = () => {
+    setIsConfirmationOpen(true);
+  };
+
+  const handleConfirmLogout = () => {
+    setIsConfirmationOpen(false);
+    localStorage.clear();
+    setIsNotificationOpen(true);
+
+    setTimeout(() => {
+      setIsNotificationOpen(false);
+      window.location.reload();
+    }, 2000);
+  };
+
+  const closeConfirmationModal = () => {
+    setIsConfirmationOpen(false);
+  };
+  const closeNotificationModal = () => {
+    setIsNotificationOpen(false);
+  };
+
+
   const renderActiveComponent = () => {
     switch (activeComponent) {
       case 'userManagement':
         return <UserManagement />;
-    //   case 'placeholder':
-    //     return <PlaceholderComponent />;
+      //   case 'placeholder':
+      //     return <PlaceholderComponent />;
       default:
         return <UserManagement />;
     }
@@ -62,7 +90,13 @@ const AdminHome = () => {
                   className="nav-link btn btn-link mt-1"
                   onClick={() => handleNavLinkClick('userManagement')}
                 >
-                  Reports 
+                  Reports
+                </button>
+              </li>
+
+              <li className="nav-item">
+                <button onClick={handleLogoutClick} className={`mt-1 btn btn-danger mt-auto logout-btn`}>
+                  Logout
                 </button>
               </li>
             </ul>
@@ -74,6 +108,21 @@ const AdminHome = () => {
       <div className="content-container">
         {renderActiveComponent()}
       </div>
+
+      {/* Confirmation Modal */}
+      <ConfirmationModal
+        isOpen={isConfirmationOpen}
+        onRequestClose={closeConfirmationModal}
+        onConfirm={handleConfirmLogout}
+        message="Are you sure you want to log out?"
+      />
+
+      {/* Notification Modal */}
+      <NotificationModal
+        isOpen={isNotificationOpen}
+        onRequestClose={closeNotificationModal}
+        message="Logged Out Successfully"
+      />
     </div>
   );
 };

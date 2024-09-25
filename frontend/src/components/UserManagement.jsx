@@ -107,7 +107,7 @@ const UserManagement = () => {
               <tr key={user._id}>
                 <td><b>{user.name}</b></td>
                 <td>{user.email}</td>
-                <td><i>{user.status === 'approved' ? 'Approved' : 'On Process'}</i></td>
+                <td><i>{user.status === 'approved' ? 'Approved' : 'In Progress'}</i></td>
                 <td>
                   {user.licenseDocument && (
                     <a

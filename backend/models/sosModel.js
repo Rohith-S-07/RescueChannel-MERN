@@ -17,12 +17,15 @@ const sosSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  location: {
+    latitude: { type: Number, required: true },
+    longitude: { type: Number, required: true },
+  },
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
-
 
 const SOS = mongoose.model('SOS', sosSchema);
 
