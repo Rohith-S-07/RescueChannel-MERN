@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import RescueLogo from '../assets/images/rescue-logo.png';
 import UserManagement from '../components/UserManagement';
+import ContactUsReports from '../components/ContactUsReports'; // Import the new component
 import NotificationModal from '../components/NotificationModal';
 import ConfirmationModal from '../components/ConfirmationModal';
-
 
 const AdminHome = () => {
   const [activeComponent, setActiveComponent] = useState('userManagement');
@@ -43,13 +43,12 @@ const AdminHome = () => {
     setIsNotificationOpen(false);
   };
 
-
   const renderActiveComponent = () => {
     switch (activeComponent) {
       case 'userManagement':
         return <UserManagement />;
-      //   case 'placeholder':
-      //     return <PlaceholderComponent />;
+      case 'contactUsReports':
+        return <ContactUsReports />; // Render the new component
       default:
         return <UserManagement />;
     }
@@ -88,9 +87,9 @@ const AdminHome = () => {
               <li className="nav-item">
                 <button
                   className="nav-link btn btn-link mt-1"
-                  onClick={() => handleNavLinkClick('userManagement')}
+                  onClick={() => handleNavLinkClick('contactUsReports')}
                 >
-                  Reports
+                  Contact Us Reports
                 </button>
               </li>
 

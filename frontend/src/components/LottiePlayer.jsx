@@ -7,7 +7,7 @@ const LottiePlayer = () => {
   }, []);
 
   return (
-    <div>
+    <div className='d-none'>
       <dotlottie-player
         src="https://lottie.host/d3c3b4b5-a24f-4091-8712-aec2a19ed83f/kxWl8JQZP8.json"
         background="transparent"

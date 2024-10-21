@@ -99,7 +99,7 @@ const VictimsPortal = () => {
 
   return (
     <div className='agency-content hero d-flex flex-column p-3'>
-      <h1 className="display-5 font-weight-bold mb-2">Victims Portal</h1>
+      <h1 className="display-5 font-weight-bold mb-2 text-center">Victims Portal</h1>
       <p className="mb-4">
         Here you can view all the reports of disasters or calamities that the victims have submitted. These reports are <span className="text-danger">not verified</span> by any authority and are only for reference purposes.
       </p>

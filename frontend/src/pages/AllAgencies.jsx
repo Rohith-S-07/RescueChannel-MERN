@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
-const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY; // Ensure your API key is available
+const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 const AllAgencies = () => {
   const [agencies, setAgencies] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchAgencies = async () => {
@@ -17,13 +18,15 @@ const AllAgencies = () => {
         const data = await response.json();
 
         // Fetch locations using reverse geocoding
-        const agenciesWithLocations = await Promise.all(data.map(async (agency) => {
-          if (agency.location && agency.location.latitude && agency.location.longitude) {
-            const location = await reverseGeocode([agency.location.latitude, agency.location.longitude]);
-            return { ...agency, location };
-          }
-          return { ...agency, location: 'Location not available' };
-        }));
+        const agenciesWithLocations = await Promise.all(
+          data.map(async (agency) => {
+            if (agency.location && agency.location.latitude && agency.location.longitude) {
+              const location = await reverseGeocode([agency.location.latitude, agency.location.longitude]);
+              return { ...agency, location };
+            }
+            return { ...agency, location: 'Location not available' };
+          })
+        );
 
         setAgencies(agenciesWithLocations);
       } catch (error) {
@@ -37,7 +40,7 @@ const AllAgencies = () => {
   const reverseGeocode = async ([lat, lng]) => {
     try {
       const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${API_KEY}`);
-      if (response.data.status === "OK") {
+      if (response.data.status === 'OK') {
         const results = response.data.results;
         return results[0]?.formatted_address || 'Location not available';
       }
@@ -47,23 +50,32 @@ const AllAgencies = () => {
     }
   };
 
+  const filteredAgencies = agencies.filter((agency) =>
+    agency.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="agency-content hero d-flex flex-column p-3">
+      <h1 className="display-5 font-weight-bold mb-2 text-center">All Agencies</h1>
+      <p className="mb-4">
+        Here you can view the details of all agencies that have registered on the Rescue Channel Website
+      </p>
+
       {/* Search Bar */}
-      <div className="row p-3">
-        <div className="col-md-12 d-flex align-items-center">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search a particular Agency..."
-          />
-        </div>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <input
+          type="text"
+          className="form-control w-100"
+          placeholder="Search for an Agency by Name..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
       </div>
 
       {/* Agencies List */}
       <div className="row px-3 gy-4">
-        {agencies.map((agency) => (
-          <div className="col-12" key={agency._id}> {/* Keep full width for cards */}
+        {filteredAgencies.map((agency) => (
+          <div className="col-12" key={agency._id}>
             <div className="bg-light rounded shadow-sm p-4 border">
               <div className="d-flex flex-column flex-md-row justify-content-between">
                 <div className="flex-grow-1">
