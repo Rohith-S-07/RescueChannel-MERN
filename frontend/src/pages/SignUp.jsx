@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import RescueLogo from '../assets/images/rescue-logo.png';
@@ -14,6 +14,8 @@ const SignUp = () => {
   const [state, setState] = useState('');
   const [description, setDescription] = useState('');
   const [licenseDocument, setLicenseDocument] = useState(null);
+  const [latitude, setLatitude] = useState(''); // New state for latitude
+  const [longitude, setLongitude] = useState(''); // New state for longitude
   const [errors, setErrors] = useState({
     name: '',
     email: '',
@@ -22,9 +24,24 @@ const SignUp = () => {
   });
 
   const navigate = useNavigate();
-  const handleNavigateHome = () =>{
-      navigate('/');
-  }
+
+  const handleNavigateHome = () => {
+    navigate('/');
+  };
+
+  // Fetch user's location when the component mounts
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setLatitude(position.coords.latitude);
+        setLongitude(position.coords.longitude);
+      }, (error) => {
+        console.error("Geolocation error:", error);
+      });
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
+  }, []);
 
   const validateForm = () => {
     let valid = true;
@@ -79,6 +96,8 @@ const SignUp = () => {
       formData.append('district', district);
       formData.append('state', state);
       formData.append('description', description);
+      formData.append('latitude', latitude); // Append latitude
+      formData.append('longitude', longitude); // Append longitude
       if (licenseDocument) {
         formData.append('licenseDocument', licenseDocument);
       }
@@ -267,12 +286,8 @@ const SignUp = () => {
             />
           </div>
 
-          <button type="submit" className="btn btn-success">
-            Register
-          </button>
+          <button type="submit" className="btn btn-primary w-100">Register</button>
         </form>
-
-        <p className="new-user">Already Registered?<a href="/signin" className="register-link">Sign In now!</a></p>
       </div>
     </div>
   );

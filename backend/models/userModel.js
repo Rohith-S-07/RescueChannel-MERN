@@ -43,7 +43,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-});
+  location: {
+    latitude: { type: Number, required: true },
+    longitude: { type: Number, required: true },
+  },
+}, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);
 
