@@ -29,9 +29,9 @@ const AddInspectionModal = ({ showInspectionModal, setShowInspectionModal, resou
             isOpen={showInspectionModal} 
             onRequestClose={() => setShowInspectionModal(false)} 
             ariaHideApp={false}
-            className="custom-modal" // Keep your custom styling here
+            className="custom-modal"
             overlayClassName="modal-overlay inspection-modals"
-            style={{ content: { width: 'auto', maxWidth: '600px', margin: 'auto' } }} // Adjust width as needed
+            style={{ content: { width: 'auto', maxWidth: '600px', margin: 'auto' } }}
         >
             <div className="modal-content">
                 <div className="modal-header">
@@ -59,8 +59,8 @@ const AddInspectionModal = ({ showInspectionModal, setShowInspectionModal, resou
                     </div>
                 </div>
                 <div className="modal-footer">
-                    <button className="btn btn-danger me-3" onClick={() => setShowInspectionModal(false)}>Close</button>
-                    <button className="btn btn-success" onClick={addInspectionLog}>Add Inspection Log</button>
+                    <button className="btn btn-danger me-3" onClick={() => setShowInspectionModal(false)}>Cancel</button>
+                    <button className="btn btn-success" onClick={addInspectionLog}><i class="bi bi-plus-square me-2"></i> Add Inspection Log</button>
                 </div>
             </div>
         </Modal>

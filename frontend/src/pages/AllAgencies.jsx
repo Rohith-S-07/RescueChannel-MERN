@@ -58,7 +58,7 @@ const AllAgencies = () => {
     <div className="agency-content hero d-flex flex-column p-3">
       <h1 className="display-5 font-weight-bold mb-2 text-center">All Agencies</h1>
       <p className="mb-4">
-        Here you can view the details of all agencies that have registered on the Rescue Channel Website
+        Here, you can view the details of all agencies registered on the Rescue Channel website.
       </p>
 
       {/* Search Bar */}

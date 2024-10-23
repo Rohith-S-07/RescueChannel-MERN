@@ -30,3 +30,26 @@ exports.createSOS = async (req, res) => {
     res.status(500).json({ message: 'Error reporting SOS', error });
   }
 };
+
+
+exports.updateSOSStatus = async (req, res) => {
+  try {
+    const { status, completedByAgency, chatRoomCreated } = req.body;
+    const sosId = req.params.id;
+
+    const updatedSOS = await SOS.findByIdAndUpdate(
+      sosId,
+      { status, completedByAgency, chatRoomCreated },
+      { new: true }
+    );
+
+    if (!updatedSOS) {
+      return res.status(404).json({ message: 'SOS report not found' });
+    }
+
+    res.status(200).json({ message: 'SOS status updated', data: updatedSOS });
+  } catch (error) {
+    console.error('Error updating SOS status:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};

@@ -11,7 +11,7 @@ const SideBar = ({ setActiveComponent}) => {
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const agencyName = localStorage.getItem('userName') || 'Agency Name';
-
+  
   const navigate = useNavigate();
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);

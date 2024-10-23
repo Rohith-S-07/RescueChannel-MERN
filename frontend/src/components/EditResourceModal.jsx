@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import NotificationModal from './NotificationModal';
 import ConfirmationModal from './ConfirmationModal';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../assets/styles/DialogBoxes.css';  // Import custom CSS file
+import '../assets/styles/DialogBoxes.css';
 
 const EditResourceModal = ({ showEditModal, setShowEditModal, resource, handleEditResource }) => {
     const [status, setStatus] = useState(resource.status);

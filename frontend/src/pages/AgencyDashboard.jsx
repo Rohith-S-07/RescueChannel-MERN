@@ -58,7 +58,8 @@ const AgencyDashboard = () => {
   return (
     <div className="agency-content hero p-3 vh-100">
       <button className="btn btn-primary mb-3" onClick={() => setShowModal(true)}>
-        Add Equipment
+        Add Equipment to the Inventory
+        <i class="bi bi-journal-plus ms-2"></i>
       </button>
 
       {resources.length === 0 ? (
@@ -70,32 +71,46 @@ const AgencyDashboard = () => {
               <div className="bg-light rounded shadow-sm p-3 border border-light d-flex flex-column justify-content-between">
                 <div className="flex-grow-1 text-dark">
                   <h5 className="text-primary mb-1">{resource.name}</h5>
-                  <div>Type: {resource.type}</div>
-                  <div>Status: <span className={`badge bg-${resource.status === 'active' ? 'success' : resource.status === 'maintenance' ? 'warning' : resource.status === 'expired' ? 'danger' : 'secondary'}`}>
+                  <div className='mb-2'><b className='me-1'>Type:</b> {resource.type}</div>
+                  <div className='mb-2'><b className='me-1'>Status: </b><span className={`badge fs-5 bg-${resource.status === 'active' ? 'success' : resource.status === 'maintenance' ? 'warning' : resource.status === 'expired' ? 'danger' : 'secondary'}`}>
                     {resource.status}
                   </span></div>
-                  {resource.expiryDate && <div>Expiry Date: {new Date(resource.expiryDate).toLocaleDateString()}</div>}
-                  <div>Condition: {resource.condition}</div>
-                  <div>Vendor: {resource.vendorName}</div>
+                  {resource.expiryDate && <div className='mb-2'><b className='me-1'>Expiry Date: </b> {new Date(resource.expiryDate).toLocaleDateString()}</div>}
+                  <div className='mb-2'><b className='me-1'>Condition:</b> {resource.condition}</div>
+                  <div className='mb-2'><b className='me-1'>Vendor:</b> {resource.vendorName}</div>
 
                   <div className="mt-2 d-flex justify-content-between align-items-center">
                     <div>
-                      <button className="btn btn-outline-info btn-sm" onClick={() => {
-                        setSelectedResource(resource);
-                        setShowInspectionModal(true);
-                      }}>
-                        Add Inspection Log
-                      </button>
-                      <button className="btn btn-outline-warning btn-sm mx-2" onClick={() => {
+                      <button className="btn btn-outline-warning btn-sm " onClick={() => {
                         setSelectedResource(resource);
                         setShowEditModal(true);
                       }}>
+                        <i class="bi bi-pencil-square me-2"></i>
                         Edit
                       </button>
                     </div>
-                    <button className="btn btn-outline-secondary btn-sm" onClick={() => toggleLogsVisibility(resource._id)}>
-                      {visibleLogs[resource._id] ? 'Hide Inspection Logs' : 'Show Inspection Logs'}
+                    <div>
+                    <button className="btn btn-outline-success btn-sm me-3" onClick={() => {
+                      setSelectedResource(resource);
+                      setShowInspectionModal(true);
+                    }}>
+                      <i class="bi bi-plus-square me-2"></i>
+                      Add Inspection Log
                     </button>
+
+                    <button className="btn btn-outline-info btn-sm" onClick={() => toggleLogsVisibility(resource._id)}>
+                      {visibleLogs[resource._id] ? (
+                        <>
+                          <i className="bi bi-eye-slash me-1"></i> Hide Inspection Logs
+                        </>
+                      ) : (
+                        <>
+                          <i className="bi bi-eye"></i> View Inspection Logs
+                        </>
+                      )}
+                    </button>
+                    </div>
+                    
                   </div>
                 </div>
 
@@ -139,7 +154,7 @@ const AgencyDashboard = () => {
           showEditModal={showEditModal}
           setShowEditModal={setShowEditModal}
           resource={selectedResource}
-          handleEditResource={handleEditResource}  // Pass handler to update resource
+          handleEditResource={handleEditResource}
         />
       )}
     </div>

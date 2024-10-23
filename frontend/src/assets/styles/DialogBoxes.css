@@ -10,16 +10,19 @@
   align-items: center;
   justify-content: center;
   z-index: 1050;
+  outline: none;
 }
 
 .custom-modal {
   max-width: 500px;
+  z-index: 1100;
   max-height: 90vh;
   overflow-y: auto;
   margin: auto;
+  outline: none;
 }
 
-.equipment-modals{
+.equipment-modals {
   width: auto;
   width: 100%;
   margin: auto;
@@ -27,10 +30,15 @@
 
 .modal-content {
   border-radius: 0.5rem;
-  width: 450px;
+  outline: none;
+  width: 400px;
   background-color: white;
   padding: 15px;
   color: black;
+}
+
+.modal-content::-webkit-scrollbar {
+  display: none;
 }
 
 .modal-header {
@@ -108,9 +116,9 @@
 
 @keyframes fillProgress {
   from {
-      width: 0;
+    width: 0;
   }
   to {
-      width: 100%;
+    width: 100%;
   }
 }
