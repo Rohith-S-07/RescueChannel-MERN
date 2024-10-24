@@ -75,7 +75,7 @@ const ContactUsReports = () => {
               <th>Query Type</th>
               <th>Message</th>
               <th>Time</th>
-              <th>Actions</th>
+              {/* <th>Actions</th> */}
             </tr>
           </thead>
           <tbody>
@@ -89,15 +89,14 @@ const ContactUsReports = () => {
                 <td>{report.query_type}</td>
                 <td>{report.message}</td>
                 <td>{new Date(report.createdAt).toLocaleString()}</td>
-                <td>
+                {/* <td>
                   <button
                     className="btn btn-danger btn-sm"
                     onClick={() => handleDelete(report._id)}
                   >
-                    <i className="bi bi-trash me-2"></i>
-                    Delete
+                    <i className="bi bi-trash"></i>
                   </button>
-                </td>
+                </td> */}
               </tr>
             ))}
           </tbody>

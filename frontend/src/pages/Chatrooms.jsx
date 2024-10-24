@@ -1,121 +1,69 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import CreateChatroomModal from '../components/CreateChatroomModal';
+import Chat from '../components/Chat';
+import { BsPlusCircle } from 'react-icons/bs'; // Optional: for chatroom creation button
 
-const ChatRooms = () => {
-    const [reports, setReports] = useState([]);
-    const [selectedReport, setSelectedReport] = useState(null);
-    const [showEditModal, setShowEditModal] = useState(false);
+const Chatrooms = () => {
+    const [chatrooms, setChatrooms] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    const [activeChatroom, setActiveChatroom] = useState(null); // State for the active chatroom
 
     useEffect(() => {
-        const fetchReports = async () => {
-            try {
-                const response = await axios.get('http://localhost:5000/api/sos');
-                setReports(response.data);
-            } catch (error) {
-                console.error('Error fetching reports:', error);
-            }
-        };
-
-        fetchReports();
+        fetchChatrooms();
     }, []);
 
-    const handleEditClick = (report) => {
-        setSelectedReport(report);
-        setShowEditModal(true);
+    const fetchChatrooms = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/api/chatrooms');
+            setChatrooms(response.data);
+        } catch (error) {
+            console.error('Error fetching chatrooms:', error);
+        }
     };
 
-    const handleEditSubmit = (event) => {
-        event.preventDefault();
-        // Add logic to handle the update of the report here
+    const handleAddChatroom = (newChatroom) => {
+        setChatrooms((prevChatrooms) => [...prevChatrooms, newChatroom]);
+        setShowModal(false); // Close the modal after adding the chatroom
+    };
 
-        alert('Report updated successfully!');
-        setShowEditModal(false);
+    const handleJoinChatroom = (chatroom) => {
+        setActiveChatroom(chatroom); // Set the active chatroom
     };
 
     return (
-        <div className='agency-content hero d-flex flex-column p-3'>
+        <div className="agency-content hero d-flex flex-column p-3">
             <h1 className="text-center text-light mb-3">Chat Rooms</h1>
-            <p className="text-muted text-center">
-                Here you can see all the reports where your rescue team is currently coordinating with other rescue teams.
-            </p>
+            <button className="btn btn-primary" onClick={() => setShowModal(true)}>
+                <BsPlusCircle /> Create Chatroom
+            </button>
 
-            <div className="row">
-                {reports.map((report) => (
-                    <div className="col-md-6 col-lg-4 mb-4" key={report._id}>
-                        <div className="card shadow-lg mb-4 border-0">
+            {/* Show the active chatroom if one is selected */}
+            {activeChatroom ? (
+                <Chat chatroom={activeChatroom} setActiveChatroom={setActiveChatroom} />
+            ) : (
+                <div className="mt-3">
+                    {chatrooms.map(chatroom => (
+                        <div key={chatroom._id} className="card my-2">
                             <div className="card-body">
-                                <h5 className="card-title">{report.emergencyType}</h5>
-                                <p className="card-text">
-                                    <strong>Location:</strong> {report.location ? `${report.location.latitude}, ${report.location.longitude}` : 'Location not specified'}
-                                </p>
-                                <p className="card-text">
-                                    <strong>Affected People:</strong> {report.affectedPeople}
-                                </p>
-                                <p className="card-text">
-                                    <strong>Respondent:</strong> {report.respondentName}
-                                </p>
-                                <p className="card-text">
-                                    <strong>Status:</strong> {report.status}
-                                </p>
-                                <button
-                                    className="btn btn-primary"
-                                    onClick={() => handleEditClick(report)}
-                                >
-                                    Edit Report
+                                <h5 className="card-title">{chatroom.name}</h5>
+                                <p className="card-text">{chatroom.description}</p>
+                                <button className="btn btn-info" onClick={() => handleJoinChatroom(chatroom)}>
+                                    Join
                                 </button>
                             </div>
                         </div>
-                    </div>
-                ))}
-            </div>
-
-            {/* Edit Modal */}
-            {showEditModal && (
-                <div className="modal show d-block" tabIndex="-1">
-                    <div className="modal-dialog modal-lg modal-dialog-centered">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title">Edit Report</h5>
-                                <button type="button" className="btn-close" onClick={() => setShowEditModal(false)}></button>
-                            </div>
-                            <div className="modal-body">
-                                {selectedReport && (
-                                    <form onSubmit={handleEditSubmit}>
-                                        <div className="mb-3">
-                                            <label htmlFor="emergencyType" className="form-label">Emergency Type</label>
-                                            <input type="text" className="form-control" id="emergencyType" defaultValue={selectedReport.emergencyType} required />
-                                        </div>
-                                        <div className="mb-3">
-                                            <label htmlFor="location" className="form-label">Location</label>
-                                            <input type="text" className="form-control" id="location" defaultValue={selectedReport.location} required />
-                                        </div>
-                                        <div className="mb-3">
-                                            <label htmlFor="affectedPeople" className="form-label">Affected People</label>
-                                            <input type="number" className="form-control" id="affectedPeople" defaultValue={selectedReport.affectedPeople} required />
-                                        </div>
-                                        <div className="mb-3">
-                                            <label htmlFor="respondentName" className="form-label">Respondent Name</label>
-                                            <input type="text" className="form-control" id="respondentName" defaultValue={selectedReport.respondentName} required />
-                                        </div>
-                                        <div className="mb-3">
-                                            <label htmlFor="status" className="form-label">Status</label>
-                                            <select className="form-select" id="status" defaultValue={selectedReport.status} required>
-                                                <option value="in-progress">In Progress</option>
-                                                <option value="completed">Completed</option>
-                                                <option value="requires-assistance">Requires Assistance</option>
-                                            </select>
-                                        </div>
-                                        <button type="submit" className="btn btn-success">Update Report</button>
-                                    </form>
-                                )}
-                            </div>
-                        </div>
-                    </div>
+                    ))}
                 </div>
             )}
+
+            <CreateChatroomModal 
+                showModal={showModal} 
+                setShowModal={setShowModal} 
+                handleAddChatroom={handleAddChatroom} // Pass the function as a prop
+            />
         </div>
     );
 };
 
-export default ChatRooms;
+export default Chatrooms;

@@ -20,7 +20,7 @@ const SignIn = () => {
   // Static admin credentials
   const adminCredentials = {
     email: 'rcadmin@gmail.com',
-    password: 'RC.Admin@321'
+    password: 'Admin@123'
   };
 
   const handleNavigateHome = () =>{

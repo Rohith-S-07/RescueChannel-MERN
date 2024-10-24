@@ -36,6 +36,8 @@ const agencyRoutes = require('./routes/agencyRoutes');
 const sosRoutes = require('./routes/sosRoutes');
 const resourceRoutes = require('./routes/resourcesRoutes');
 const contactRoutes = require('./routes/contactRoutes');
+const chatroomRoutes = require('./routes/chatroomRoutes');
+
 
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
@@ -44,6 +46,8 @@ app.use('/api/sos', sosRoutes);
 app.use('/api/resources', resourceRoutes);
 app.use('/api/contactus', contactRoutes);
 app.use('/api/admin/contactus', contactRoutes);
+app.use('/api/chatrooms', chatroomRoutes);
+
 
 
 
