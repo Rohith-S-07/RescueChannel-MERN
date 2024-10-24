@@ -78,8 +78,9 @@ const AddEquipmentModal = ({ showModal, setShowModal, handleAddResource }) => {
                         <input type="text" className="form-control" value={condition} onChange={(e) => setCondition(e.target.value)} />
                     </div>
                     <div className="mb-3">
-                        <label>Expiry Date</label>
+                        <label>Expiry Date <span className='text-primary small'>optional</span></label>
                         <input type="date" className="form-control" value={expiryDate} onChange={(e) => setExpiryDate(e.target.value)} />
+                        
                     </div>
                     <div className="mb-3">
                         <label>Vendor Name</label>
