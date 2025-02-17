@@ -48,12 +48,12 @@ Ensure you have the following installed on your machine:
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/rescuechannel.git
+    git clone https://github.com/Rohith-S-07/RescueChannel-MERN.git
     ```
 
 2. Navigate to the project directory:
     ```bash
-    cd rescuechannel
+    cd RescueChannel-MERN
     ```
 
 3. Install dependencies for the frontend:
