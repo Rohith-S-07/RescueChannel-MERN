@@ -17,6 +17,7 @@ import MapsPortal from './pages/MapsPortal'
 import AdminRoute from './components/AdminRoute';
 import AdminHome from './pages/AdminHome';
 import UserManagement from './components/UserManagement';
+import config from './config';
 
 import './assets/styles/LandingPage.css';
 import './assets/styles/AgencyHomepage.css';
