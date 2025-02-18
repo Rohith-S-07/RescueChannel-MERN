@@ -6,8 +6,6 @@ node_modules/
 # Production build output
 dist/
 
-# dotenv environment variables file
-.env
 
 # Log files
 npm-debug.log
