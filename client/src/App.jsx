@@ -37,7 +37,7 @@ const App = () => {
 
   const validateUserId = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/auth/validatesession/${id}`, { withCredentials: true });
+      const response = await axios.get(`${config.BASE_URL}/api/auth/validatesession/${id}`, { withCredentials: true });
       if (response.status === 200 && response.data.valid) {
         setIsValidUser(true);
       } else {
