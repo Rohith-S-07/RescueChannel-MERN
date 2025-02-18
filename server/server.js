@@ -1,11 +1,32 @@
 const express = require('express');
-const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const fs = require('fs');
 const path = require('path');
 const app = express();
 
+const cors = require('cors');
+
+const allowedOrigins = [
+  'https://rescuechannel.onrender.com',  // Production frontend URL
+  'http://localhost:5173',               // Localhost frontend URL (React runs on port 5173)
+];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    // Allow the request if the origin is in the allowedOrigins list, or if there's no origin (i.e., in case of a direct request or localhost)
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);  // Allow the request
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,  // Ensure cookies and authentication are included in requests
+};
+
+app.use(cors(corsOptions));
 
 const uploadsDir = path.join(__dirname, 'uploads');
 if (!fs.existsSync(uploadsDir)) {
@@ -16,7 +37,6 @@ dotenv.config();
 
 connectDB();
 
-app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
