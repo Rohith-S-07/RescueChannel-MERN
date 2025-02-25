@@ -57,6 +57,10 @@ app.use('/api/contactus', contactRoutes);
 app.use('/api/admin/contactus', contactRoutes);
 app.use('/api/chatrooms', chatroomRoutes);
 
+app.get('/api/ping', (req, res) => {
+  res.status(200).json({ message: "Backend is awake!" });
+});
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

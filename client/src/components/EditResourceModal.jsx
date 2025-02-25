@@ -88,7 +88,7 @@ const EditResourceModal = ({ showEditModal, setShowEditModal, resource, handleEd
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-danger me-3" onClick={() => setShowEditModal(false)}>Cancel</button>
-                        <button type="button" className="btn btn-success" onClick={updateResource}><i class="bi bi-pencil-square me-2"></i> Save changes</button>
+                        <button type="button" className="btn btn-success" onClick={updateResource}><i className="bi bi-pencil-square me-2"></i> Save changes</button>
                     </div>
                 </div>
             </Modal>

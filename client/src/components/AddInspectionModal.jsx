@@ -61,7 +61,7 @@ const AddInspectionModal = ({ showInspectionModal, setShowInspectionModal, resou
                 </div>
                 <div className="modal-footer">
                     <button className="btn btn-danger me-3" onClick={() => setShowInspectionModal(false)}>Cancel</button>
-                    <button className="btn btn-success" onClick={addInspectionLog}><i class="bi bi-plus-square me-2"></i> Add Inspection Log</button>
+                    <button className="btn btn-success" onClick={addInspectionLog}><i className="bi bi-plus-square me-2"></i> Add Inspection Log</button>
                 </div>
             </div>
         </Modal>

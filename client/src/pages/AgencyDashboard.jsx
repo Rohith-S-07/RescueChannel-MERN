@@ -60,7 +60,7 @@ const AgencyDashboard = () => {
     <div className="agency-content hero p-3 vh-100">
       <button className="btn btn-primary mb-3" onClick={() => setShowModal(true)}>
         Add Equipment to the Inventory
-        <i class="bi bi-journal-plus ms-2"></i>
+        <i className="bi bi-journal-plus ms-2"></i>
       </button>
 
       {resources.length === 0 ? (
@@ -86,7 +86,7 @@ const AgencyDashboard = () => {
                         setSelectedResource(resource);
                         setShowEditModal(true);
                       }}>
-                        <i class="bi bi-pencil-square me-2"></i>
+                        <i className="bi bi-pencil-square me-2"></i>
                         Edit
                       </button>
                     </div>
@@ -95,7 +95,7 @@ const AgencyDashboard = () => {
                       setSelectedResource(resource);
                       setShowInspectionModal(true);
                     }}>
-                      <i class="bi bi-plus-square me-2"></i>
+                      <i className="bi bi-plus-square me-2"></i>
                       Add Inspection Log
                     </button>
 

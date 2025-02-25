@@ -36,6 +36,19 @@ const App = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const wakeBackend = async () => {
+      try {
+        await axios.get(`${config.BASE_URL}/api/ping`);
+        console.log("Backend pinged successfully");
+      } catch (error) {
+        console.error("Error pinging backend:", error);
+      }
+    };
+
+    wakeBackend();
+  }, []);
+
   const validateUserId = async (id) => {
     try {
       const response = await axios.get(`${config.BASE_URL}/api/auth/validatesession/${id}`, { withCredentials: true });
@@ -56,8 +69,8 @@ const App = () => {
     <Router>
       <Routes>
         {/* Main layout with conditional rendering of Responder or Agency Home */}
-        <Route 
-          path="/" 
+        <Route
+          path="/"
           element={
             <Layout>
               {isValidUser ? (
@@ -66,7 +79,7 @@ const App = () => {
                 <ResponderHome />
               )}
             </Layout>
-          } 
+          }
         />
         <Route path="/about-us" element={<Layout><AboutUs /></Layout>} />
         <Route path="/contact" element={<Layout><ContactUs /></Layout>} />
